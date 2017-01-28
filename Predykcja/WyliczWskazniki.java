@@ -7,6 +7,7 @@ package wyscigi_konne.Predykcja;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,29 +16,39 @@ import java.util.HashMap;
  */
 public class WyliczWskazniki extends PolaczZBaza 
 {
+    private HashMap<String, Integer> stanToru;
+    
+    public WyliczWskazniki() throws SQLException
+    {
+        this.stanToru = this.pobierzStanyToru();
+    }
+    
     /**
      *
      * @throws SQLException
      */
     public void wybierzWskaznikiDlaKoni() throws SQLException
     {
-        HashMap<String, HashMap<String, String>> strukturaDanych = new HashMap<>();
+        HashMap<String, HashMap<String, Integer>> strukturaDanych = new HashMap<>();
         DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
         ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery("SELECT `nazwa` FROM `konie` WHERE `usunieto` = 0");
         
         while(wynikZapytania.next()) {
+            String[] daneKonia = null;
+            HashMap<String, Integer> daneWskaznikowe;
             String nazwa = wynikZapytania.getString("nazwa");
-            HashMap<String, String> daneWskaznikowe = (strukturaDanych.get(nazwa) != null) ? strukturaDanych.get(nazwa) : new HashMap<>();
-            String[] daneKonia = daneHistoryczne.zwrocDaneKonia(nazwa);
             HashMap<Integer, HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwa);
+
+            if(strukturaDanych.get(nazwa) == null) {
+                daneWskaznikowe = new HashMap<>();
+                daneKonia = daneHistoryczne.zwrocDaneKonia(nazwa);
+            } else {
+                daneWskaznikowe = strukturaDanych.get(nazwa);
+            }
             
-            
-            
+            System.out.println(nazwa);
             for(HashMap<String, String> obiekt: daneGonitwKonia.values()) {
-                for(String klucz: obiekt.keySet()) {
-                    System.out.println(klucz);
-                    System.out.println(obiekt.get(klucz));
-                }
+                this.przetworzDaneGonitwy(daneWskaznikowe, obiekt);
             }
         }
     }
@@ -73,40 +84,58 @@ public class WyliczWskazniki extends PolaczZBaza
         return wynik;
     }
     
-    private String przetworzDaneGonitwy(String klucz, String wartosc)
-    {
-        String wynik = "";
+    private HashMap<String, Integer> przetworzDaneGonitwy(HashMap<String, Integer> daneWskaznikowe, HashMap<String, String> daneGonitw)
+    {   
+        int wartoscWskaznika;
         
-        switch(klucz) {
-            case "miejsce":
-                int pomocnicza = Math.abs(100 - (int)(Math.pow(Integer.valueOf(wartosc), 2)));
-                wynik += "<miejsce>"+ pomocnicza +"</miejsce>";
-                break;
-            case "stan toru":
-                break;
-            case "styl":
-                break;
-            case "wycofano":
-                if(wartosc.length() > 0) {
-                    wynik += "<wycofano>10</wycofano>";
-                } else {
-                    wynik += "<wycofano>0</wycofano>";
-                }
-                break;
-            case "dystans":
-                break;
-            case "czas":
-                break;
-            case "rekordy":
-                break;
-            case "jezdziec":
-                break;
-            case "temperatura":
-                break;
-            case "odleglosci":
-                break;   
+        for(String klucz: daneGonitw.keySet()){
+            wartoscWskaznika = (daneWskaznikowe.get(klucz) != null) ? daneWskaznikowe.get(klucz) : 0;
+            
+            switch(klucz) {
+                case "miejsce":
+                    int miejsce = (daneGonitw.get(klucz) != null) ? Integer.valueOf(daneGonitw.get(klucz)) : 100;
+                    wartoscWskaznika += (100 - miejsce);
+                    break;
+                case "stan toru":
+                    int wynik = (stanToru.get(daneGonitw.get(klucz)) != null) ? stanToru.get(daneGonitw.get(klucz)) : 0;
+                    
+                    
+                    break;
+                case "styl":
+                    break;
+                case "wycofano":
+                    break;
+                case "dystans":
+                    break;
+                case "czas":
+                    break;
+                case "rekordy":
+                    break;
+                case "jezdziec":
+                    break;
+                case "temperatura":
+                    break;
+                case "odleglosci":
+                    break;   
+            }
+            
+            
+            daneWskaznikowe.put(klucz, wartoscWskaznika);
         }
         
-        return wynik;
+        return daneWskaznikowe;
+    }
+    
+    private HashMap<String, Integer> pobierzStanyToru() throws SQLException
+    {
+        HashMap<String, Integer> stan = new HashMap<>();
+        ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery("SELECT DISTINCT `stan toru` FROM `informacje`");
+        
+        while(wynikZapytania.next()) {
+            String klucz = wynikZapytania.getString("stan toru");
+            stan.put(klucz, klucz.trim().length());
+        }
+        
+        return stan;
     }
 }
