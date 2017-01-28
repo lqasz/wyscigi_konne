@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigikonne.fxml.MainItemsController">
+   <left>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goSymulacjaGalop" prefHeight="200.0" prefWidth="200.0">
+               <graphic>
+                  <ImageView fitHeight="192.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/flaga.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Button>
+            <Label text="Symulacja wyścigu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button graphicTextGap="0.0" mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefHeight="200.0" prefWidth="200.0">
+               <graphic>
+                  <ImageView fitHeight="192.0" fitWidth="192.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/wykres.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Label text="Dotychczasowe wyniki">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
