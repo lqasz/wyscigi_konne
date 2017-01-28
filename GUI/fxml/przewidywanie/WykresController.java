@@ -1,4 +1,4 @@
-package wyscigikonne.fxml.przewidywanie;
+package wyscigi_konne.GUI.fxml.przewidywanie;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
-import wyscigikonne.DaneDoTestow;
+import wyscigi_konne.GUI.DaneDoTestow;
 
 public class WykresController implements Initializable {
    

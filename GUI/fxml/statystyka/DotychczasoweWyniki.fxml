@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigikonne.fxml.statystyka.DotychczasoweWynikiController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.DotychczasoweWynikiController">
    <bottom>
       <FlowPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -47,9 +47,6 @@
                      </image>
                   </ImageView>
                </graphic>
-               <padding>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-               </padding>
             </Button>
             <Label text="Wyniki konia">
                <font>
@@ -70,9 +67,6 @@
                      </image>
                   </ImageView>
                </graphic>
-               <padding>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-               </padding>
             </Button>
             <Label text="Wyniki jeźdźca">
                <font>
@@ -93,9 +87,6 @@
                      </image>
                   </ImageView>
                </graphic>
-               <padding>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-               </padding>
             </Button>
             <Label text="Wyniki gonitwy">
                <font>

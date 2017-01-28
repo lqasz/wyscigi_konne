@@ -1,8 +1,8 @@
-package wyscigikonne.fxml;
+package wyscigi_konne.GUI.fxml;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import wyscigikonne.WyscigiKonne;
+import wyscigi_konne.GUI.WyscigiKonne;
 
 public class MainItemsController {
     

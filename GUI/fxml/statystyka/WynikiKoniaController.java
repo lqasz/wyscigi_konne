@@ -1,8 +1,9 @@
-package wyscigikonne.fxml.statystyka;
+package wyscigi_konne.GUI.fxml.statystyka;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import wyscigikonne.WyscigiKonne;
+import wyscigi_konne.GUI.WyscigiKonne;
+
 
 public class WynikiKoniaController {
         

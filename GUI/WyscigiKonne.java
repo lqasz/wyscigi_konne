@@ -1,4 +1,4 @@
-package wyscigikonne;
+package wyscigi_konne.GUI;
 
 import java.io.IOException;
 import javafx.application.Application;

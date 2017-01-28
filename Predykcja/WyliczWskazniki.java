@@ -27,7 +27,7 @@ public class WyliczWskazniki extends PolaczZBaza
         
         while(wynikZapytania.next()) {
             String nazwa = wynikZapytania.getString("nazwa");
-            HashMap<String, String> daneWskaznikowe = (strukturaDanych.get(nazwa) != null) ? strukturaDanych.get(nazwa) : new HashMap<>();
+            HashMap<String, String> daneWskaznikowe = (HashMap<String, String>) ((strukturaDanych.get(nazwa) != null) ? strukturaDanych.get(nazwa) : new HashMap<>());
             String[] daneKonia = daneHistoryczne.zwrocDaneKonia(nazwa);
             HashMap<Integer, HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwa);
             
