@@ -1,4 +1,4 @@
-package wyscigikonne.fxml.przewidywanie;
+package wyscigi_konne.GUI.fxml.przewidywanie;
 
 import javafx.beans.property.SimpleStringProperty;
 

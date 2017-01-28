@@ -1,4 +1,4 @@
-package wyscigikonne.fxml.przewidywanie;
+package wyscigi_konne.GUI.fxml.przewidywanie;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,7 +12,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import wyscigikonne.WyscigiKonne;
+import wyscigi_konne.GUI.WyscigiKonne;
 
 public class SymulacjaController implements Initializable {
     
@@ -76,10 +76,8 @@ public class SymulacjaController implements Initializable {
     @FXML
     private void dodajZespol(ActionEvent event) {
         
-        daneTabeli.add(new ElementyTabeli(WyborKonia.getValue().toString(),WyborJezdzca.getValue().toString()));
-        Tabela.setItems(daneTabeli);
-        System.out.println(WyborKonia.toString());
-        
+        daneTabeli.add(new ElementyTabeli(WyborKonia.getSelectionModel().getSelectedItem().toString(),WyborJezdzca.getSelectionModel().getSelectedItem().toString()));
+        Tabela.setItems(daneTabeli);   
     }
 }
 
