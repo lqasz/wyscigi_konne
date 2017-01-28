@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wyscigi_konne;
+package wyscigi_konne.Predykcja;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
