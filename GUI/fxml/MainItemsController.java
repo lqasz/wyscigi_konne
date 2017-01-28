@@ -16,5 +16,6 @@ public class MainItemsController {
     @FXML
     public void goDotychczasoweWyniki() throws IOException{ 
         pokaz.showView("fxml/statystyka/DotychczasoweWyniki.fxml");
-    }
+    } 
+    
 }
