@@ -17,7 +17,7 @@ import wyscigi_konne.GUI.WyscigiKonne;
 public class SymulacjaController implements Initializable {
     
     private WyscigiKonne pokaz;
-    
+         
     @FXML public ComboBox WyborDystansu; 
     @FXML public ComboBox WyborKonia;
     @FXML public ComboBox WyborJezdzca;
@@ -26,66 +26,70 @@ public class SymulacjaController implements Initializable {
     @FXML public TableColumn<ElementyTabeli,String> KolumnaKoni;
     @FXML public TableColumn<ElementyTabeli,String> KolumnaJezdzcow;
    
-    ObservableList<Number> Dystans = FXCollections.observableArrayList();
+    ObservableList<String> Dystans = FXCollections.observableArrayList();
     ObservableList<String> Konie = FXCollections.observableArrayList();
     ObservableList<String> Jezdzcy = FXCollections.observableArrayList();
     
-    ObservableList<ElementyTabeli> daneTabeli = FXCollections.observableArrayList();
+    static volatile ObservableList<ElementyTabeli> daneTabeli = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-       Dystans.add(1400);
-        Dystans.add(1500);
-        Dystans.add(1600);
-        Dystans.add(1700);
+        Konie.add("Rafał");
+        Konie.add("Franek");
         
-        Konie.add("Koń Rafał");
-        Konie.add("Mutang");
-        Konie.add("Kucyk pony");
-        
-        Jezdzcy.add("Gandalf");
-        Jezdzcy.add("Vegeta");
-        Jezdzcy.add("Geralt z Rivi");
-                 
+        Jezdzcy.add("Piotr");
+        Jezdzcy.add("Pawel");
+    
         WyborDystansu.setItems(Dystans);
         WyborKonia.setItems(Konie);
         WyborJezdzca.setItems(Jezdzcy);
         
-        KolumnaKoni.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("KolunaKoni"));
-        KolumnaJezdzcow.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("KolumnaJezdzcow"));
-        
-        daneTabeli.add(new ElementyTabeli("Kot","Pies"));
-        daneTabeli.add(new ElementyTabeli("Kaczka","Kura"));
-        Tabela.setItems(daneTabeli);
-        
+        KolumnaKoni.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("kon"));
+        KolumnaJezdzcow.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("jezdziec"));
     }    
-
+    
+    //Metoda dodaje zespół do tabeli i usuwa wybrane pozycje z Comboboxów
+    @FXML
+    private void dodajZespol(ActionEvent event) {
+        
+        daneTabeli.add(new ElementyTabeli(WyborKonia.getSelectionModel().getSelectedItem().toString(), 
+                                          WyborJezdzca.getSelectionModel().getSelectedItem().toString()));
+        Konie.remove(WyborKonia.getSelectionModel().getSelectedItem().toString());
+        Jezdzcy.remove(WyborJezdzca.getSelectionModel().getSelectedItem().toString());
+       
+        Tabela.setItems(daneTabeli); 
+        WyborKonia.setItems(Konie);
+        WyborJezdzca.setItems(Jezdzcy);
+    }
+    
+    //Metoda usuwa zaznaczony zespół z tabeli i dodaje wybrane pozycje z Comboboxów
+    @FXML
+    private void usunZespol(ActionEvent event){
+        
+       ElementyTabeli selectedItem = Tabela.getSelectionModel().getSelectedItem();
+       Konie.add(selectedItem.getKon());
+       Jezdzcy.add(selectedItem.getJezdziec());
+       
+       Tabela.getItems().remove(selectedItem);
+       WyborKonia.setItems(Konie);
+       WyborJezdzca.setItems(Jezdzcy);
+    }
+    
+    //Metoda otwiera nowe okno
     @FXML
     private void goNewWindow(ActionEvent event) throws IOException {
         
+        WykresController.setDane(daneTabeli);
         pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
+        
     }
 
+    //Metoda zmienia widok bieżącego okna
     @FXML
     private void goMainItems(ActionEvent event) throws IOException {
         
         pokaz.showView("fxml/MainItems.fxml");
     }
-
-    @FXML
-    private void dodajZespol(ActionEvent event) {
-        
-        daneTabeli.add(new ElementyTabeli(WyborKonia.getSelectionModel().getSelectedItem().toString(),WyborJezdzca.getSelectionModel().getSelectedItem().toString()));
-        Tabela.setItems(daneTabeli);   
-    }
 }
 
-/*
-for(HashMap<String, String> obiekt: daneGonitwKonia.values()) {
-                for(String wartosc: obiekt.keySet()) {
-                    System.out.println(wartosc);
-                    System.out.println(obiekt.get(wartosc));
-                }
-            }
-*/

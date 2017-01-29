@@ -2,7 +2,7 @@ package wyscigi_konne.GUI.fxml.przewidywanie;
 
 import javafx.beans.property.SimpleStringProperty;
 
-class ElementyTabeli{
+public class ElementyTabeli{
     
     private final SimpleStringProperty kon;
     private final SimpleStringProperty jezdziec;

@@ -11,14 +11,14 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.WynikiGonitwController">
    <bottom>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="80.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goNewWindow" prefWidth="100.0" text="Pokaż wyniki">
+            <Button mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefWidth="100.0" text="Powrót">
+            <Button mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefWidth="150.0" text="Powrót">
                <font>
                   <Font size="14.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ChoiceBox prefWidth="200.0" />
+            <ComboBox prefWidth="200.0" />
             <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/data.png" />
@@ -54,7 +54,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ChoiceBox prefWidth="200.0" />
+            <ComboBox prefWidth="200.0" />
             <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/godzina.png" />
