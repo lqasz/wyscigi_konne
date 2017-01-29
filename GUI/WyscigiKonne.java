@@ -62,4 +62,8 @@ public class WyscigiKonne extends Application{
     public static void main(String[] args) {
         launch(args);
     }
+
+    public void showNewView(String fxmlprzewidywanieSymulacjafxml) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

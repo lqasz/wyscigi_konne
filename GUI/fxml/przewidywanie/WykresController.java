@@ -23,7 +23,7 @@ public class WykresController implements Initializable {
         int i;
         for(i=0;i<daneDoWykresu.size();i++){
             
-            dane.add(new PieChart.Data("" + daneDoWykresu.get(i).getKon() + " " + daneDoWykresu.get(i).getJezdziec(),4.5));
+            dane.add(new PieChart.Data("Jeździec:  " + daneDoWykresu.get(i).getJezdziec() + " na koniu: " + daneDoWykresu.get(i).getKon(),4.5));
         }
  
         wykres.setLegendSide(Side.RIGHT);

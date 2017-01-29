@@ -39,7 +39,7 @@ public class SymulacjaController implements Initializable {
         Konie.add("Franek");
         
         Jezdzcy.add("Piotr");
-        Jezdzcy.add("Pawel");
+        Jezdzcy.add("Paweł");
     
         WyborDystansu.setItems(Dystans);
         WyborKonia.setItems(Konie);

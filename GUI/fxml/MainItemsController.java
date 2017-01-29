@@ -18,4 +18,9 @@ public class MainItemsController {
         pokaz.showView("fxml/statystyka/DotychczasoweWyniki.fxml");
     } 
     
+    @FXML
+    public void goDodajZawody() throws IOException{
+        pokaz.showNewView("");
+    }
+    
 }

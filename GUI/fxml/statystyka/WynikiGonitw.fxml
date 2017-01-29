@@ -10,8 +10,48 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.WynikiGonitwController">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0">
+         <children>
+            <Label text="Wybierz Datę">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="WyborDaty" prefWidth="150.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/data.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <Label text="Wybierz wyścig">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="WyborBiegu" prefWidth="150.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/wyścig.jpg" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+      </VBox>
+   </right>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="80.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
                <font>
@@ -26,44 +66,4 @@
          </children>
       </HBox>
    </bottom>
-   <left>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0">
-         <children>
-            <Label text="Wybierz datę wyścigu">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ComboBox prefWidth="200.0" />
-            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/data.png" />
-               </image>
-            </ImageView>
-         </children>
-         <padding>
-            <Insets top="30.0" />
-         </padding>
-      </VBox>
-   </left>
-   <right>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0">
-         <children>
-            <Label text="Wybierz godzinę wyścigu">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ComboBox prefWidth="200.0" />
-            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/godzina.png" />
-               </image>
-            </ImageView>
-         </children>
-         <padding>
-            <Insets top="30.0" />
-         </padding>
-      </VBox>
-   </right>
 </BorderPane>

@@ -11,22 +11,8 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.DotychczasoweWynikiController">
-   <bottom>
-      <FlowPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" onAction="#goMainItems" prefWidth="100.0" text="Powrót">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </children>
-         <padding>
-            <Insets left="250.0" top="10.0" />
-         </padding>
-      </FlowPane>
-   </bottom>
    <top>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Dotychczasowe wyniki">
                <font>
@@ -37,11 +23,11 @@
       </HBox>
    </top>
    <left>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#goWynikiKonia" prefHeight="150.0" prefWidth="150.0">
                <graphic>
-                  <ImageView fitHeight="142.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/koń.png" />
                      </image>
@@ -57,11 +43,11 @@
       </VBox>
    </left>
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#goWynikiJeźdźca" prefHeight="150.0" prefWidth="150.0">
                <graphic>
-                  <ImageView fitHeight="142.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/jeździec.png" />
                      </image>
@@ -77,11 +63,11 @@
       </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#goWynikiGonitw" prefHeight="150.0" prefWidth="150.0">
                <graphic>
-                  <ImageView fitHeight="142.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/wyścig.jpg" />
                      </image>
@@ -96,4 +82,15 @@
          </children>
       </VBox>
    </right>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#goMainItems" prefWidth="150.0" text="Powrót">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>
