@@ -6,14 +6,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.TabelaGonitwController">
    <center>
-      <TableView prefHeight="301.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="TabelaWynikowGonitw" prefHeight="301.0" prefWidth="500.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="125.0" text="Kolejność" />
-          <TableColumn prefWidth="125.0" text="Nazwa Konia" />
-            <TableColumn prefWidth="125.0" text="Jeżdziec" />
-            <TableColumn prefWidth="125.0" text="Numer startowy" />
+          <TableColumn fx:id="Kolejnosc" prefWidth="125.0" text="Kolejność" />
+          <TableColumn fx:id="NazwaKonia" prefWidth="125.0" text="Nazwa Konia" />
+            <TableColumn fx:id="Jezdziec" prefWidth="125.0" text="Jeżdziec" />
+            <TableColumn fx:id="NrStartowy" prefWidth="125.0" text="Numer startowy" />
         </columns>
       </TableView>
    </center>

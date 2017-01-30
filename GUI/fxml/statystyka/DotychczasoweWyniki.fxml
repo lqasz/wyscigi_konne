@@ -27,7 +27,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#goWynikiKonia" prefHeight="150.0" prefWidth="150.0">
                <graphic>
-                  <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/koń.png" />
                      </image>
@@ -47,7 +47,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#goWynikiJeźdźca" prefHeight="150.0" prefWidth="150.0">
                <graphic>
-                  <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/jeździec.png" />
                      </image>
@@ -67,7 +67,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#goWynikiGonitw" prefHeight="150.0" prefWidth="150.0">
                <graphic>
-                  <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/wyścig.jpg" />
                      </image>
