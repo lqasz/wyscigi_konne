@@ -1,4 +1,4 @@
-package wyscigi_konne.GUI.fxml.statystyka;
+package wyscigi_konne.GUI.fxml.statystyka.gonitwa;
 
 import java.io.IOException;
 import java.net.URL;
@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import wyscigi_konne.GUI.WyscigiKonne;
-import wyscigi_konne.Predykcja.DaneHistoryczne;
 
 
 public class WynikiGonitwController implements Initializable{
@@ -50,6 +49,6 @@ public class WynikiGonitwController implements Initializable{
     @FXML
     public void goNewWindow() throws IOException{
     
-        pokaz.showNewWindow("fxml/statystyka/TabelaGonitw.fxml");
+        pokaz.showNewWindow("fxml/statystyka/gonitwa/TabelaGonitw.fxml");
     }
 }

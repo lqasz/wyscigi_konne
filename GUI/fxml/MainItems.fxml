@@ -35,7 +35,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button graphicTextGap="0.0" mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefHeight="150.0" prefWidth="150.0">
+            <Button alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -54,7 +54,7 @@
    <right>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button graphicTextGap="0.0" mnemonicParsing="false" onAction="#goDodajZawody" prefHeight="150.0" prefWidth="150.0">
+            <Button alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#goDodajZawody" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="92.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>

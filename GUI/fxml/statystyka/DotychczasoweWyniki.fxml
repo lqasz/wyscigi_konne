@@ -25,7 +25,7 @@
    <left>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goWynikiKonia" prefHeight="150.0" prefWidth="150.0">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiKonia" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -45,7 +45,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goWynikiJeźdźca" prefHeight="150.0" prefWidth="150.0">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiJeźdźca" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -65,7 +65,7 @@
    <right>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goWynikiGonitw" prefHeight="150.0" prefWidth="150.0">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiGonitw" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>

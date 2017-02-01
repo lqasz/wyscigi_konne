@@ -1,5 +1,6 @@
-package wyscigi_konne.GUI.fxml.statystyka;
+package wyscigi_konne.GUI.fxml.statystyka.gonitwa;
 
+import wyscigi_konne.GUI.fxml.statystyka.gonitwa.DaneTabeliGonitw;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -23,10 +24,10 @@ public class TabelaGonitwController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
 
-        Kolejnosc.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,Integer>("kolejnosc"));
-        NazwaKonia.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,String>("nazwaKonia"));
-        Jezdziec.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,String>("jezdziec"));
-        NrStartowy.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,Integer>("nrStartowy"));
+        Kolejnosc.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,Integer>("Kolejnosc"));
+        NazwaKonia.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,String>("NazwaKonia"));
+        Jezdziec.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,String>("Jezdziec"));
+        NrStartowy.setCellValueFactory(new PropertyValueFactory<DaneTabeliGonitw,Integer>("NrStartowy"));
         
                 
         WynikGonitwy.add(new DaneTabeliGonitw(1, "Rafał", "Koleś GIT", 5));

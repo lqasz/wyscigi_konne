@@ -9,19 +9,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.WynikiGonitwController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.jezdziec.WynikiJeżdżcaController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0">
          <children>
-            <Label text="Wybierz Datę">
+            <Label text="Wybierz jeźdżca">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="WyborDaty" prefWidth="150.0" />
+            <ComboBox fx:id="WyborJezdzca" prefWidth="150.0" />
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../images/data.png" />
+                  <Image url="@../../../images/jeździec.png" />
                </image>
             </ImageView>
          </children>
@@ -33,15 +33,15 @@
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Label text="Wybierz wyścig">
+            <Label text="Wybierz sezon">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="WyborBiegu" prefWidth="150.0" />
+            <ComboBox fx:id="WyborSezonu" prefWidth="150.0" />
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../images/wyścig.jpg" />
+                  <Image url="@../../../images/data.png" />
                </image>
             </ImageView>
          </children>

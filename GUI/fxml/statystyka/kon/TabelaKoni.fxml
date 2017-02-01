@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.kon.TabelaKoniController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -16,12 +15,12 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="83.0" layoutY="59.0" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="Tabela" layoutX="83.0" layoutY="59.0" prefHeight="371.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn prefWidth="125.0" text="Data" />
-                            <TableColumn prefWidth="125.0" text="Jeździec" />
-                              <TableColumn prefWidth="125.0" text="Numer startowy" />
-                              <TableColumn prefWidth="125.0" text="Kolejność" />
+                            <TableColumn fx:id="Data" prefWidth="125.0" text="Data" />
+                            <TableColumn fx:id="Jezdziec" prefWidth="125.0" text="Jeździec" />
+                              <TableColumn fx:id="NrStartowy" prefWidth="125.0" text="Numer startowy" />
+                              <TableColumn fx:id="Kolejnosc" prefWidth="125.0" text="Kolejność" />
                           </columns>
                         </TableView>
                      </children>
@@ -32,7 +31,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <LineChart layoutX="56.0" layoutY="8.0" prefHeight="371.0" prefWidth="600.0" title="Wyniki konia" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <LineChart fx:id="Wykres" layoutX="56.0" layoutY="8.0" prefHeight="371.0" prefWidth="600.0" title="Wyniki konia" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>

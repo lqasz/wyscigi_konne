@@ -15,16 +15,16 @@ public class DotychczasoweWynikiController {
     
     @FXML
     public void goWynikiGonitw() throws IOException{
-        pokaz.showView("fxml/statystyka/WynikiGonitw.fxml");
+        pokaz.showView("fxml/statystyka/gonitwa/WynikiGonitw.fxml");
     }  
     
     @FXML
     public void goWynikiJeźdźca() throws IOException{
-        pokaz.showView("fxml/statystyka/WynikiJeźdźca.fxml");
+        pokaz.showView("fxml/statystyka/jezdziec/WynikiJeźdźca.fxml");
     }  
     
     @FXML
     public void goWynikiKonia() throws IOException{
-        pokaz.showView("fxml/statystyka/WynikiKonia.fxml");
+        pokaz.showView("fxml/statystyka/kon/WynikiKonia.fxml");
     }  
 }

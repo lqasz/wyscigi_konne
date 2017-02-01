@@ -35,6 +35,11 @@ public class SymulacjaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        Dystans.add("1100");
+        Dystans.add("1200");
+        Dystans.add("1300");
+        Dystans.add("1400");
+        
         Konie.add("Rafał");
         Konie.add("Franek");
         
