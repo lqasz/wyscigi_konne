@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import wyscigi_konne.GUI.fxml.AllertBoxController;
 
 
 public class WyscigiKonne extends Application{
@@ -56,7 +57,27 @@ public class WyscigiKonne extends Application{
         
         Scene scene = new Scene(statsWindow);
         noweOkno.setScene(scene);
-        noweOkno.show();
+        noweOkno.showAndWait();
+    }
+    
+    public static void showAlertBox(String rodzajBledu, String komunikat) throws IOException{
+
+        AllertBoxController przekaznik;
+        przekaznik = new AllertBoxController(komunikat);
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(WyscigiKonne.class.getResource("/fxml/AlertBox.fxml"));
+        BorderPane statsWindow = (BorderPane)loader.load();
+        loader.setController(przekaznik);
+        
+        Stage noweOkno = new Stage();
+        noweOkno.setTitle(rodzajBledu);
+        noweOkno.initModality(Modality.WINDOW_MODAL);
+        noweOkno.initOwner(primaryStage);
+        
+        Scene scene = new Scene(statsWindow);
+        noweOkno.setScene(scene);
+        noweOkno.showAndWait();
     }
    
     public static void main(String[] args) {

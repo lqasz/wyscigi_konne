@@ -84,10 +84,10 @@ public class SymulacjaController implements Initializable {
     //Metoda otwiera nowe okno
     @FXML
     private void goNewWindow(ActionEvent event) throws IOException {
-        
+   
         WykresController.setDane(daneTabeli);
         pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
-        
+         
     }
 
     //Metoda zmienia widok bieżącego okna

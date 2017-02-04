@@ -24,7 +24,7 @@ public class TabelaKoniController implements Initializable {
     @FXML LineChart<String, Number> Wykres;
     
     ObservableList<DaneTabeliKoni> Wyniki = FXCollections.observableArrayList();
-    
+     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
