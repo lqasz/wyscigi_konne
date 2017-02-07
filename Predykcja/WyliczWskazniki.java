@@ -8,6 +8,7 @@ package wyscigi_konne.Predykcja;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -44,7 +45,7 @@ public class WyliczWskazniki extends PolaczZBaza
             String[] daneKonia = null;
             HashMap<String, Integer> daneWskaznikowe;
             String nazwa = wynikZapytania.getString("nazwa");
-            HashMap<Integer, HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwa);
+            ObservableList<HashMap> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwa);
 
             if(strukturaDanych.get(nazwa) == null) {
                 daneWskaznikowe = new HashMap<>();
@@ -53,7 +54,7 @@ public class WyliczWskazniki extends PolaczZBaza
                 daneWskaznikowe = strukturaDanych.get(nazwa);
             }
             
-            for(HashMap<String, String> obiekt: daneGonitwKonia.values()) {
+            for(HashMap obiekt: daneGonitwKonia) {
                 daneWskaznikowe = this.przetworzDaneGonitwy(daneWskaznikowe, obiekt);
             }
             
