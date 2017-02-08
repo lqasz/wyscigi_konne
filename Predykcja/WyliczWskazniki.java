@@ -7,14 +7,17 @@ package wyscigi_konne.Predykcja;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 
 /**
  *
  * @author Admin
  */
-public class WyliczWskazniki extends PolaczZBaza 
+public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
 {
     private final HashMap<String, Integer> rasaKonia;
     private final HashMap<String, Integer> jezdziec;
@@ -24,54 +27,71 @@ public class WyliczWskazniki extends PolaczZBaza
     
     public WyliczWskazniki() throws SQLException
     {
-        this.rasaKonia = this.pobierzInformacje("SELECT DISTINCT `rasa` FROM `konie` WHERE `rasa` not like ''", "rasa");
-        this.jezdziec = this.pobierzInformacje("SELECT DISTINCT `jezdziec` FROM `dzokeje`", "jezdziec");
-        this.stanToru = this.pobierzInformacje("SELECT DISTINCT `stan toru` FROM `informacje`", "stan toru");
-        this.stylZespolu = this.pobierzInformacje("SELECT DISTINCT `styl` FROM `informacje`", "styl");
-        this.wycofanoZespol = this.pobierzInformacje("SELECT DISTINCT `wycofano` FROM `gonitwa`", "wycofano");
+        this.rasaKonia = this.przeksztalcNaWskazniki("SELECT DISTINCT `rasa` FROM `konie` WHERE `rasa` not like ''", "rasa");
+        this.jezdziec = this.przeksztalcNaWskazniki("SELECT DISTINCT `jezdziec` FROM `dzokeje`", "jezdziec");
+        this.stanToru = this.przeksztalcNaWskazniki("SELECT DISTINCT `stan toru` FROM `informacje`", "stan toru");
+        this.stylZespolu = this.przeksztalcNaWskazniki("SELECT DISTINCT `styl` FROM `informacje`", "styl");
+        this.wycofanoZespol = this.przeksztalcNaWskazniki("SELECT DISTINCT `wycofano` FROM `gonitwa`", "wycofano");
     }
     
     /**
      *
      * @throws SQLException
      */
-    public void wybierzWskaznikiDlaKoni() throws SQLException
+    public void wybierzWskaznikiDlaZespolu() throws SQLException
     {
-        HashMap<String, HashMap<String, Integer>> strukturaDanych = new HashMap<>();
+        ArrayList<String[]> daneZespolu = new ArrayList<>();
         DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
-        ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery("SELECT `nazwa` FROM `konie` WHERE `usunieto` = 0");
+        HashMap<String, HashMap<String, Integer>> strukturaDanych = new HashMap<>();
+        ResultSet zapytanieZespol = this.uchwytDoBazy.executeQuery("SELECT `id`, `id konia`, `id dzokeja` FROM `zespol`");
         
-        while(wynikZapytania.next()) {
+        while(zapytanieZespol.next()) {
+            String idZespolu = zapytanieZespol.getString("id");
+            String idKonia = zapytanieZespol.getString("id konia");
+            String idDzokeja = zapytanieZespol.getString("id dzokeja");
+            
+            daneZespolu.add(new String[]{idZespolu, idKonia, idDzokeja});
+        }
+        
+        for(String[] dane: daneZespolu) {
             String[] daneKonia = null;
             HashMap<String, Integer> daneWskaznikowe;
-            String nazwa = wynikZapytania.getString("nazwa");
-            ObservableList<HashMap> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwa);
+            
+            ResultSet zapytanieNazwaKonia = this.uchwytDoBazy.executeQuery("SELECT `nazwa` FROM `konie` WHERE `id` = '"+ dane[1] +"'");
+            zapytanieNazwaKonia.next();
+            String nazwaKonia = zapytanieNazwaKonia.getString("nazwa");
+            
+            ObservableList<HashMap> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia);
 
-            if(strukturaDanych.get(nazwa) == null) {
+            if(strukturaDanych.get(dane[0]) == null) {
                 daneWskaznikowe = new HashMap<>();
-                daneKonia = daneHistoryczne.zwrocDaneKonia(nazwa);
+                daneKonia = daneHistoryczne.zwrocDaneKonia(nazwaKonia);
             } else {
-                daneWskaznikowe = strukturaDanych.get(nazwa);
+                daneWskaznikowe = strukturaDanych.get(dane[0]);
             }
             
-            for(HashMap obiekt: daneGonitwKonia) {
-                daneWskaznikowe = this.przetworzDaneGonitwy(daneWskaznikowe, obiekt);
+            for(HashMap gonitwa: daneGonitwKonia) {
+                daneWskaznikowe = this.przetworzDaneGonitwy(daneWskaznikowe, gonitwa);
             }
             
             daneWskaznikowe.putAll(przetworzDaneKonia(daneKonia));
-            strukturaDanych.put(nazwa, daneWskaznikowe);
+            strukturaDanych.put(dane[0], daneWskaznikowe);
         }
         
-        for(String nazwaKonia: strukturaDanych.keySet()) {
-            String XML = "<kon>"+ nazwaKonia;
-            HashMap<String, Integer> daneWskaznikowe = strukturaDanych.get(nazwaKonia);
+        this.uchwytDoBazy.executeUpdate("TRUNCATE `wskazniki`");
+        for(String idZespolu: strukturaDanych.keySet()) {
+            String XML = "<zespol>"+ idZespolu.trim();
+            HashMap<String, Integer> daneWskaznikowe = strukturaDanych.get(idZespolu);
             XML = daneWskaznikowe.keySet().stream().map((klucz) -> "\n  <"+ klucz +">"+ daneWskaznikowe.get(klucz) +"</"+ klucz +">").reduce(XML, String::concat);
-            XML += "\n</kon>";
+            XML += "\n</zespol>";
             
-            System.out.println(XML);
+            this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML +"')");
         }
     }
     
+    /**
+     *
+     */
     private HashMap<String, Integer> przetworzDaneKonia(String[] dane)
     {
         String nazwa;
@@ -109,6 +129,9 @@ public class WyliczWskazniki extends PolaczZBaza
         return podstawoweDane;
     }
     
+    /**
+     *
+     */
     private HashMap<String, Integer> przetworzDaneGonitwy(HashMap<String, Integer> daneWskaznikowe, HashMap<String, String> daneGonitw)
     {   
         int wartoscWskaznika;
@@ -133,8 +156,6 @@ public class WyliczWskazniki extends PolaczZBaza
                 case "dystans":
                     wartosc = Integer.valueOf(daneGonitw.get(klucz));
                     break;
-                case "czas":
-                    break;
                 case "rekordy":
                     wartosc = (!"".equals(daneGonitw.get(klucz))) ? 100 : 0;
                     break;
@@ -142,12 +163,17 @@ public class WyliczWskazniki extends PolaczZBaza
                     wartosc = jezdziec.get(daneGonitw.get(klucz));
                     break;
                 case "temperatura":
-                    break;
-                case "odleglosci":
-                    break;   
+                    if(daneGonitw.get(klucz) != null) {
+                        char[] tablicaZnakow = (daneGonitw.get(klucz).trim()).toCharArray();
+
+                        for(int i = 0; i < tablicaZnakow.length; i++) {
+                            wartosc += (int)(tablicaZnakow[i]);
+                        }
+                    }
+                    break;  
             }
             
-            if(!"data gonitwy".equals(klucz)) {
+            if(!"data gonitwy".equals(klucz) && !"nr startowy".equals(klucz) && !"odleglosci".equals(klucz) && !"czas".equals(klucz)) {
                 wartoscWskaznika += wartosc;
                 daneWskaznikowe.put(klucz, wartoscWskaznika);
             }
@@ -156,23 +182,46 @@ public class WyliczWskazniki extends PolaczZBaza
         return daneWskaznikowe;
     }
     
-    private HashMap<String, Integer> pobierzInformacje(String zapytanie, String pole) throws SQLException
+    /**
+     *
+     * @param zapytanie
+     * @param pole
+     * @return
+     */
+    @Override
+    public final HashMap<String, Integer> przeksztalcNaWskazniki(String zapytanie, String pole)
     {
-        HashMap<String, Integer> dane = new HashMap<>();
-        ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
-        
-        while(wynikZapytania.next()) {
-            int wartosc = 0;
-            String klucz = wynikZapytania.getString(pole);
-            char[] tablicaZnakow = klucz.trim().toCharArray();
+        try {
+            HashMap<String, Integer> dane = new HashMap<>();
+            ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
             
-            for(int i = 0; i < tablicaZnakow.length; i++) {
-                wartosc += (int)(tablicaZnakow[i]);
+            while(wynikZapytania.next()) {
+                int wartosc = 0;
+                String klucz = wynikZapytania.getString(pole);
+                char[] tablicaZnakow = (klucz.trim()).toCharArray();
+                
+                for(int i = 0; i < tablicaZnakow.length; i++) {
+                    wartosc += (int)(tablicaZnakow[i]);
+                }
+                
+                dane.put(klucz, wartosc);
             }
             
-            dane.put(klucz, wartosc);
+            return dane;
+        } catch (SQLException ex) {
+            Logger.getLogger(WyliczWskazniki.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return dane;
+        return null;
+    }
+
+    /**
+     *
+     * @param nazwaCzlonka
+     * @return
+     */
+    @Override
+    public String zwrocCzlonkaZespolu(String nazwaCzlonka) 
+    {
+        return "";
     }
 }
