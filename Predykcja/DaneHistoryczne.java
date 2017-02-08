@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -22,11 +24,10 @@ public class DaneHistoryczne extends PolaczZBaza
      * @return
      * @throws SQLException
      */
-    public HashMap<Integer, HashMap<String, String>> zwrocDaneGonitwy(String dataGonitwy) throws SQLException
+    public ObservableList<HashMap> zwrocDaneGonitwy(String dataGonitwy) throws SQLException
     {
-        int iterator = 0;
         ResultSet wynikZapytania;
-        HashMap<Integer, HashMap<String, String>> daneWynikowe = new HashMap();
+        ObservableList<HashMap> daneWynikowe = FXCollections.observableArrayList();
         String zapytanie = "SELECT `nazwa`, `jezdziec`, `miejsce`, `nr startowy`,`dystans`, `czas`, `temperatura`, `styl`, `odleglosci`, `stan toru`, `rekordy` "
                             + "FROM `informacje` "
                             + "INNER JOIN `gonitwainformacje` ON(`informacje`.`id` = `id informacji`) "
@@ -63,8 +64,7 @@ public class DaneHistoryczne extends PolaczZBaza
             dane.put("stan toru", stanToru);
             dane.put("rekordy", rekordy);
             
-            daneWynikowe.put(iterator, dane);
-            iterator++;
+            daneWynikowe.add(dane);
         }
         
         return daneWynikowe;
@@ -113,12 +113,11 @@ public class DaneHistoryczne extends PolaczZBaza
         return waga;
     }
     
-    public HashMap<Integer, HashMap<String, String>> zwrocDaneZespolu(String obiekt, String nazwaObiektu) throws SQLException
+    public ObservableList<HashMap> zwrocDaneZespolu(String obiekt, String nazwaObiektu) throws SQLException
     {
-        int iterator = 0;
         ResultSet wynikZapytania;
         String nazwaWiersza1, nazwaWiersza2;
-        HashMap<Integer, HashMap<String, String>> daneWynikowe = new HashMap();
+        ObservableList<HashMap> daneWynikowe = FXCollections.observableArrayList();
         
         if("dzokej".equals(obiekt)) {
             nazwaWiersza1 = "nazwa";
@@ -146,8 +145,7 @@ public class DaneHistoryczne extends PolaczZBaza
             dane.put("rekord", rekord);
             dane.put("styl", styl);
             
-            daneWynikowe.put(iterator, dane);
-            iterator++;
+            daneWynikowe.add(dane);
         }
         
         return daneWynikowe;
@@ -160,12 +158,11 @@ public class DaneHistoryczne extends PolaczZBaza
      * @return
      * @throws SQLException
      */
-    public HashMap<Integer, HashMap<String, String>> zwrocDaneGonitwDlaObiektu(String obiekt, String nazwaObiektu) throws SQLException
+    public ObservableList<HashMap> zwrocDaneGonitwDlaObiektu(String obiekt, String nazwaObiektu) throws SQLException
     {
-        int iterator = 0;
         ResultSet wynikZapytania;
         String nazwaWiersza1, nazwaWiersza2;
-        HashMap<Integer, HashMap<String, String>> daneWynikowe = new HashMap();
+        ObservableList<HashMap> daneWynikowe = FXCollections.observableArrayList();
         
         if("dzokej".equals(obiekt)) {
             nazwaWiersza1 = "nazwa";
@@ -214,8 +211,7 @@ public class DaneHistoryczne extends PolaczZBaza
             dane.put("stan toru", stanToru);
             dane.put("rekordy", rekordy);
             
-            daneWynikowe.put(iterator, dane);
-            iterator++;
+            daneWynikowe.add(dane);
         }
         
         return daneWynikowe;
@@ -252,6 +248,4 @@ public class DaneHistoryczne extends PolaczZBaza
         
         return daneWynikowe;
     }
-    
-    // TODO: 
 }
