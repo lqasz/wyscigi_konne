@@ -80,13 +80,20 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
         
         this.uchwytDoBazy.executeUpdate("TRUNCATE `wskazniki`");
         for(String idZespolu: strukturaDanych.keySet()) {
+            String[] czlonkowieZespolu = this.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
+            
+            GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(czlonkowieZespolu[0], czlonkowieZespolu[1]);
+            strukturaDanych.put(idZespolu, grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu)));
+            
             String XML = "<zespol>"+ idZespolu.trim();
             HashMap<String, Integer> daneWskaznikowe = strukturaDanych.get(idZespolu);
             XML = daneWskaznikowe.keySet().stream().map((klucz) -> "\n  <"+ klucz +">"+ daneWskaznikowe.get(klucz) +"</"+ klucz +">").reduce(XML, String::concat);
             XML += "\n</zespol>";
             
-            this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML +"')");
+            this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML.trim() +"')");
         }
+        
+        
     }
     
     /**
@@ -216,12 +223,26 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
 
     /**
      *
-     * @param nazwaCzlonka
+     * @param idZespolu
      * @return
      */
     @Override
-    public String zwrocCzlonkaZespolu(String nazwaCzlonka) 
+    public String[] zwrocCzlonkowZespolu(int idZespolu) 
     {
-        return "";
+        try {
+            ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery("SELECT `nazwa`, `jezdziec` "
+                    + "FROM `zespol` INNER JOIN `dzokeje` ON (`dzokeje`.`id` = `id dzokeja`) "
+                    + "INNER JOIN `konie` ON(`konie`.`id` = `id konia`)" 
+                    + "WHERE `zespol`.`id` = '"+ idZespolu +"'");
+            
+            wynikZapytania.next();
+            String kon = wynikZapytania.getString("nazwa");
+            String dzokej = wynikZapytania.getString("jezdziec");
+            
+            return new String[]{kon, dzokej};
+        } catch (SQLException ex) {
+            Logger.getLogger(WyliczWskazniki.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

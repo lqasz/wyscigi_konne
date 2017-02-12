@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DaneStatystyczne extends PolaczZBaza
 {
-    public double obliczStatystykeDlaObiektu(String statystyka, String dataPoczatku, String dataKonca, String obiekt, String nazwaObiektu) throws SQLException
+    public int obliczStatystykeDlaObiektu(String statystyka, String dataPoczatku, String dataKonca, String obiekt, String nazwaObiektu) throws SQLException
     {
         String nazwaWiersza;
         ResultSet wynikZapytania;
@@ -25,7 +25,7 @@ public class DaneStatystyczne extends PolaczZBaza
             nazwaWiersza = "nazwa";
         }
         
-        String zapytanie = "SELECT "+ statystyka +"(`miejsce`) AS srednia "
+        String zapytanie = "SELECT "+ statystyka +"(`miejsce`) AS statystyka "
                             + "FROM `gonitwa` "
                             + "INNER JOIN `dzokeje` ON(`dzokeje`.`id` = `id dzokeja`) "
                             + "INNER JOIN `konie` ON(`konie`.`id` = `id konia`) "
@@ -33,6 +33,6 @@ public class DaneStatystyczne extends PolaczZBaza
         
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         wynikZapytania.next();
-        return wynikZapytania.getDouble("srednia");
+        return wynikZapytania.getInt("statystyka");
     }
 }

@@ -13,6 +13,6 @@ import java.util.HashMap;
  */
 public interface IPodstaweInformacje 
 {
-    public String zwrocCzlonkaZespolu(String nazwaCzlonka);
+    public String[] zwrocCzlonkowZespolu(int idZespolu);
     public HashMap<String, Integer> przeksztalcNaWskazniki(String zapytanie, String pole);
 }
