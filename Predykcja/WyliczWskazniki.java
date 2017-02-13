@@ -78,6 +78,14 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             strukturaDanych.put(dane[0], daneWskaznikowe);
         }
         
+        this.dodajDaneDoBazy(strukturaDanych);
+    }
+    
+    private void dodajDaneDoBazy(HashMap<String, HashMap<String, Integer>> strukturaDanych) throws SQLException
+    {
+        int srednia = 0,
+            iterator = 0;
+        
         this.uchwytDoBazy.executeUpdate("TRUNCATE `wskazniki`");
         for(String idZespolu: strukturaDanych.keySet()) {
             String[] czlonkowieZespolu = this.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
@@ -85,15 +93,22 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(czlonkowieZespolu[0], czlonkowieZespolu[1]);
             strukturaDanych.put(idZespolu, grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu)));
             
+            iterator++;
+            srednia += (grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu))).get("srednia");
+        }
+        
+        srednia /= iterator;
+        for(String idZespolu: strukturaDanych.keySet()) {
             String XML = "<zespol>"+ idZespolu.trim();
             HashMap<String, Integer> daneWskaznikowe = strukturaDanych.get(idZespolu);
             XML = daneWskaznikowe.keySet().stream().map((klucz) -> "\n  <"+ klucz +">"+ daneWskaznikowe.get(klucz) +"</"+ klucz +">").reduce(XML, String::concat);
+            XML += "\n  <rozstep>"+ (daneWskaznikowe.get("maksimum") - daneWskaznikowe.get("minimum")) +"</rozstep>";
+            XML += "\n  <roznicaSrednich>"+ Math.abs(daneWskaznikowe.get("srednia") - srednia) +"</roznicaSrednich>";
+            XML += "\n  <naSrednia>"+ (Double.valueOf(daneWskaznikowe.get("srednia")) / Double.valueOf(srednia)) +"</naSrednia>";
             XML += "\n</zespol>";
             
             this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML.trim() +"')");
         }
-        
-        
     }
     
     /**
