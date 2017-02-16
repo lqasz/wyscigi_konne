@@ -104,7 +104,9 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             XML = daneWskaznikowe.keySet().stream().map((klucz) -> "\n  <"+ klucz +">"+ daneWskaznikowe.get(klucz) +"</"+ klucz +">").reduce(XML, String::concat);
             XML += "\n  <rozstep>"+ (daneWskaznikowe.get("maksimum") - daneWskaznikowe.get("minimum")) +"</rozstep>";
             XML += "\n  <roznicaSrednich>"+ Math.abs(daneWskaznikowe.get("srednia") - srednia) +"</roznicaSrednich>";
-            XML += "\n  <naSrednia>"+ (Double.valueOf(daneWskaznikowe.get("srednia")) / Double.valueOf(srednia)) +"</naSrednia>";
+            XML += "\n  <minimumNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("minimum")) / Double.valueOf(srednia)) +"</minimumNaSrednia>";
+            XML += "\n  <maksimumNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("maksimum")) / Double.valueOf(srednia)) +"</maksimumNaSrednia>";
+            XML += "\n  <sredniaNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("srednia")) / Double.valueOf(srednia)) +"</sredniaNaSrednia>";
             XML += "\n</zespol>";
             
             this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML.trim() +"')");
