@@ -10,11 +10,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.DotychczasoweWynikiController">
+<BorderPane fx:id="tlo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@DotychczasoweWynikiStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.DotychczasoweWynikiController">
    <top>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Dotychczasowe wyniki">
+            <Label fx:id="tytul" text="Dotychczasowe wyniki">
                <font>
                   <Font size="24.0" />
                </font>
@@ -25,7 +25,7 @@
    <left>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiKonia" prefHeight="150.0" prefWidth="150.0">
+            <Button fx:id="kon" alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiKonia" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,7 +34,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label text="Wyniki konia">
+            <Label fx:id="wynikK" text="Wyniki konia">
                <font>
                   <Font size="18.0" />
                </font>
@@ -45,7 +45,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiJeźdźca" prefHeight="150.0" prefWidth="150.0">
+            <Button fx:id="jezdziec" alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiJeźdźca" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -54,7 +54,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label text="Wyniki jeźdźca">
+            <Label fx:id="wynikJ" text="Wyniki jeźdźca">
                <font>
                   <Font size="18.0" />
                </font>
@@ -65,16 +65,16 @@
    <right>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiGonitw" prefHeight="150.0" prefWidth="150.0">
+            <Button fx:id="gonitwa" alignment="CENTER" mnemonicParsing="false" onAction="#goWynikiGonitw" prefHeight="150.0" prefWidth="150.0">
                <graphic>
                   <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../images/wyścig.jpg" />
+                        <Image url="@../../images/wyścig.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Label text="Wyniki gonitwy">
+            <Label fx:id="wynikG" text="Wyniki gonitwy">
                <font>
                   <Font size="18.0" />
                </font>
@@ -85,7 +85,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goMainItems" prefWidth="150.0" text="Powrót">
+            <Button fx:id="powrot" mnemonicParsing="false" onAction="#goMainItems" prefWidth="150.0" text="Powrót">
                <font>
                   <Font size="14.0" />
                </font>

@@ -30,11 +30,9 @@ public class WykresController implements Initializable {
         wykres.setData(dane);
     }  
 
-    public static void setDane(ObservableList<ElementyTabeli> daneTabeli) {
+    public static void getDane(ObservableList<ElementyTabeli> daneTabeli) {
         daneDoWykresu = daneTabeli;
     }
-
-
 }    
     
 

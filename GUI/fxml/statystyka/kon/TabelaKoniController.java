@@ -1,7 +1,11 @@
 package wyscigi_konne.GUI.fxml.statystyka.kon;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +15,17 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import wyscigi_konne.GUI.fxml.statystyka.gonitwa.TabelaGonitwController;
+import wyscigi_konne.Predykcja.DaneHistoryczne;
 
 public class TabelaKoniController implements Initializable {
 
+
+    private static String kon;
+    private static String start;
+    
+    private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
+    private static final String[] parametry = new String[]{"data gonitwy","jezdziec","nr startowy","miejsce"};
        
     @FXML TableView<DaneTabeliKoni> Tabela;
     @FXML TableColumn<DaneTabeliKoni, String> Data;
@@ -23,6 +35,7 @@ public class TabelaKoniController implements Initializable {
 
     @FXML LineChart<String, Number> Wykres;
     
+    ObservableList<HashMap<String, String>> Wynik = FXCollections.observableArrayList();
     ObservableList<DaneTabeliKoni> Wyniki = FXCollections.observableArrayList();
      
     @Override
@@ -35,13 +48,39 @@ public class TabelaKoniController implements Initializable {
         
         XYChart.Series<String, Number> DaneDoWykresu = new XYChart.Series<>();
         
-        Wyniki.add(new DaneTabeliKoni("12/12/2016","Abdul",4,5));
-        Wyniki.add(new DaneTabeliKoni("12/13/2016","Cbdul",2,1));
-        Wyniki.add(new DaneTabeliKoni("12/14/2016","Dbdul",6,2));
-        Wyniki.add(new DaneTabeliKoni("12/15/2016","Fbdul",5,3));
-        Wyniki.add(new DaneTabeliKoni("12/16/2016","Tbdul",2,4));
-        Wyniki.add(new DaneTabeliKoni("12/17/2016","Rbdul",1,6));
-        Wyniki.add(new DaneTabeliKoni("12/18/2016","Wbdul",7,7));
+        try {
+            Wynik = daneHistoryczne.zwrocDaneGonitwDlaObiektu("kon", kon, start, parametry);
+        } catch (SQLException ex) {
+            Logger.getLogger(TabelaKoniController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        String data = "";
+        String jezdziec = "";
+        int nrStartowy = 0;
+        int kolejnosc = 0;
+        
+        System.out.println(Wynik);
+        for(HashMap<String, String> map: Wynik){
+            for(String klucz: map.keySet()) {
+                switch(klucz) {
+                   
+                    case "data gonitwy":
+                        data = map.get(klucz).trim();
+                        break;
+                    case "jezdziec":
+                        jezdziec = map.get(klucz).trim();
+                        break;
+                    case "nr startowy":
+                        nrStartowy = Integer.valueOf(map.get(klucz));
+                        break;
+                    case "miejsce":
+                        kolejnosc = Integer.valueOf(map.get(klucz));
+                    break;
+                }
+                 
+            }
+            Wyniki.add(new DaneTabeliKoni(data,jezdziec,nrStartowy,kolejnosc));
+        }
         
         Tabela.setItems(Wyniki);
         
@@ -52,6 +91,14 @@ public class TabelaKoniController implements Initializable {
         }
    
         Wykres.getData().addAll(DaneDoWykresu);
-    }       
+    } 
+    
+    public static void getKon(String kon){
+        TabelaKoniController.kon = kon;
+    }
+    
+    public static void getStart(String start){
+        TabelaKoniController.start = start;
+    }
 }
 

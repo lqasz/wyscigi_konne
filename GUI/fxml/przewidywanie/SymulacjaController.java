@@ -2,7 +2,10 @@ package wyscigi_konne.GUI.fxml.przewidywanie;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,10 +16,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import wyscigi_konne.GUI.WyscigiKonne;
+import wyscigi_konne.GUI.fxml.AllertBoxController;
+import wyscigi_konne.Predykcja.DaneHistoryczne;
 
 public class SymulacjaController implements Initializable {
     
     private WyscigiKonne pokaz;
+    
+    private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
          
     @FXML public ComboBox WyborDystansu; 
     @FXML public ComboBox WyborKonia;
@@ -26,29 +33,25 @@ public class SymulacjaController implements Initializable {
     @FXML public TableColumn<ElementyTabeli,String> KolumnaKoni;
     @FXML public TableColumn<ElementyTabeli,String> KolumnaJezdzcow;
    
-    ObservableList<String> Dystans = FXCollections.observableArrayList();
-    ObservableList<String> Konie = FXCollections.observableArrayList();
-    ObservableList<String> Jezdzcy = FXCollections.observableArrayList();
+    ObservableList<String> dystans = FXCollections.observableArrayList();
+    ObservableList<String> konie = FXCollections.observableArrayList();
+    ObservableList<String> jezdzcy = FXCollections.observableArrayList();
     
     static volatile ObservableList<ElementyTabeli> daneTabeli = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        Dystans.add("1100");
-        Dystans.add("1200");
-        Dystans.add("1300");
-        Dystans.add("1400");
-        
-        Konie.add("Rafał");
-        Konie.add("Franek");
-        
-        Jezdzcy.add("Piotr");
-        Jezdzcy.add("Paweł");
+        try {
+            dystans = daneHistoryczne.polaDoComboBox("informacje", "data dystans");
+        } catch (SQLException ex) {
+            Logger.getLogger(SymulacjaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     
-        WyborDystansu.setItems(Dystans);
-        WyborKonia.setItems(Konie);
-        WyborJezdzca.setItems(Jezdzcy);
+        WyborDystansu.setItems(dystans);
+        WyborKonia.setItems(konie);
+        WyborJezdzca.setItems(jezdzcy);
         
         KolumnaKoni.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("kon"));
         KolumnaJezdzcow.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("jezdziec"));
@@ -60,12 +63,12 @@ public class SymulacjaController implements Initializable {
         
         daneTabeli.add(new ElementyTabeli(WyborKonia.getSelectionModel().getSelectedItem().toString(), 
                                           WyborJezdzca.getSelectionModel().getSelectedItem().toString()));
-        Konie.remove(WyborKonia.getSelectionModel().getSelectedItem().toString());
-        Jezdzcy.remove(WyborJezdzca.getSelectionModel().getSelectedItem().toString());
+        konie.remove(WyborKonia.getSelectionModel().getSelectedItem().toString());
+        jezdzcy.remove(WyborJezdzca.getSelectionModel().getSelectedItem().toString());
        
         Tabela.setItems(daneTabeli); 
-        WyborKonia.setItems(Konie);
-        WyborJezdzca.setItems(Jezdzcy);
+        WyborKonia.setItems(konie);
+        WyborJezdzca.setItems(jezdzcy);
     }
     
     //Metoda usuwa zaznaczony zespół z tabeli i dodaje wybrane pozycje z Comboboxów
@@ -73,21 +76,33 @@ public class SymulacjaController implements Initializable {
     private void usunZespol(ActionEvent event){
         
        ElementyTabeli selectedItem = Tabela.getSelectionModel().getSelectedItem();
-       Konie.add(selectedItem.getKon());
-       Jezdzcy.add(selectedItem.getJezdziec());
+       konie.add(selectedItem.getKon());
+       jezdzcy.add(selectedItem.getJezdziec());
        
        Tabela.getItems().remove(selectedItem);
-       WyborKonia.setItems(Konie);
-       WyborJezdzca.setItems(Jezdzcy);
+       WyborKonia.setItems(konie);
+       WyborJezdzca.setItems(jezdzcy);
     }
     
     //Metoda otwiera nowe okno
     @FXML
     private void goNewWindow(ActionEvent event) throws IOException {
-   
-        WykresController.setDane(daneTabeli);
-        pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
-         
+    
+        if(WyborDystansu.getSelectionModel().getSelectedItem() == null){
+            
+            AllertBoxController.getTekst("Wybierz dystans gonitwy");
+            pokaz.showAlertBox();
+            
+        }else if(daneTabeli.size()<2){
+            
+            AllertBoxController.getTekst("Wybierz co najmniej 2 zespoły");
+            pokaz.showAlertBox();
+            
+        }else{
+            
+            WykresController.getDane(daneTabeli);  
+            pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
+        } 
     }
 
     //Metoda zmienia widok bieżącego okna

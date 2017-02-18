@@ -9,16 +9,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.gonitwa.WynikiGonitwController">
+<BorderPane fx:id="tlo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@WynikiGonitwStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.gonitwa.WynikiGonitwController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0">
          <children>
-            <Label text="Wybierz Datę">
+            <Label fx:id="opisD" text="Wybierz Datę">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="WyborDaty" prefWidth="150.0" />
+            <ComboBox fx:id="WyborDaty" onAction="#dodajBiegi" prefWidth="150.0" />
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/data.png" />
@@ -33,7 +33,7 @@
    <right>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Label text="Wybierz wyścig">
+            <Label fx:id="opisB" text="Wybierz wyścig">
                <font>
                   <Font size="18.0" />
                </font>
@@ -41,7 +41,7 @@
             <ComboBox fx:id="WyborBiegu" prefWidth="150.0" />
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../images/wyścig.jpg" />
+                  <Image url="@../../../images/wyścig.png" />
                </image>
             </ImageView>
          </children>
@@ -53,12 +53,12 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
+            <Button fx:id="wyniki" mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefWidth="150.0" text="Powrót">
+            <Button fx:id="powrot" mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefWidth="150.0" text="Powrót">
                <font>
                   <Font size="14.0" />
                </font>

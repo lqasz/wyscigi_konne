@@ -1,4 +1,4 @@
-package wyscigi_konne.GUI.fxml.statystyka.kon;
+package wyscigi_konne.GUI.fxml.statystyka.jezdziec;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,54 +18,54 @@ import wyscigi_konne.GUI.WyscigiKonne;
 import wyscigi_konne.GUI.fxml.AllertBoxController;
 import wyscigi_konne.Predykcja.DaneHistoryczne;
 
-public class WynikiKoniaController implements Initializable{
-        
-    private WyscigiKonne pokaz;
+public class WynikiJezdzcaController implements Initializable{
+    
+    private WyscigiKonne pokaz; 
     private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
-        
+    
     @FXML BorderPane tlo;
     
-    @FXML Label opisK;
+    @FXML Label opisJ;
     @FXML Label opisS;
     
     @FXML Button wyniki;
     @FXML Button powrot;
-    
-    @FXML public ComboBox WyborKonia;
+         
+    @FXML public ComboBox WyborJezdzca;
     @FXML public ComboBox WyborSezonu;
  
-    ObservableList<String> konie = FXCollections.observableArrayList();
+    ObservableList<String> jezdzcy = FXCollections.observableArrayList();
     ObservableList<String> starty = FXCollections.observableArrayList();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            konie = daneHistoryczne.polaDoComboBox("konie","nazwa");
+            jezdzcy = daneHistoryczne.polaDoComboBox("dzokeje","jezdziec");
         } catch (SQLException ex) {
-            Logger.getLogger(WynikiKoniaController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WynikiJezdzcaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        WyborKonia.setItems(konie);
+      
+        WyborJezdzca.setItems(jezdzcy);
     }
     
     public void dodajBiegi() throws SQLException{
          
-        starty = daneHistoryczne.polaDoComboBox("gonitwa","YEAR(`data gonitwy`)");
+        starty = daneHistoryczne.polaDoComboBox("gonitwa", "YEAR(`data gonitwy`)");
         
         WyborSezonu.setItems(starty);
     }
     
     @FXML
     public void goDotychczasoweWyniki() throws IOException{  
+        
         pokaz.showView("fxml/statystyka/DotychczasoweWyniki.fxml");
     }
-      
+        
     @FXML
     public void goNewWindow() throws IOException{
-        
-             if(WyborKonia.getSelectionModel().getSelectedItem() == null){
+        if(WyborJezdzca.getSelectionModel().getSelectedItem() == null){
             
-            AllertBoxController.getTekst("Wybierz konia");
+            AllertBoxController.getTekst("Wybierz jeźdzca");
             pokaz.showAlertBox();
             
         }else if(WyborSezonu.getSelectionModel().getSelectedItem() == null){
@@ -74,9 +74,9 @@ public class WynikiKoniaController implements Initializable{
             pokaz.showAlertBox();
             
         }else{
-            TabelaKoniController.getKon(WyborKonia.getSelectionModel().getSelectedItem().toString());
-            TabelaKoniController.getStart(WyborSezonu.getSelectionModel().getSelectedItem().toString());
-            pokaz.showNewWindow("fxml/statystyka/kon/TabelaKoni.fxml");
-        } 
+            TabelaJezdzcowController.getJezdziec(WyborJezdzca.getSelectionModel().getSelectedItem().toString());
+            TabelaJezdzcowController.getStart(WyborSezonu.getSelectionModel().getSelectedItem().toString());
+            pokaz.showNewWindow("fxml/statystyka/jezdziec/TabelaJezdzcow.fxml");
+        }   
     }
 }

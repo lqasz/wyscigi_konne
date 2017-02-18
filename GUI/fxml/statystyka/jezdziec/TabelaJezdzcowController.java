@@ -1,7 +1,11 @@
 package wyscigi_konne.GUI.fxml.statystyka.jezdziec;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,8 +15,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import wyscigi_konne.Predykcja.DaneHistoryczne;
 
 public class TabelaJezdzcowController implements Initializable {
+    
+    private static String jezdziec;
+    private static String start;
+    
+    private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
+    private static final String[] parametry = new String[]{"data gonitwy","nazwa","nr startowy","miejsce"};
     
     @FXML TableView<DaneTabeliJezdzcow> Tabela;
     @FXML TableColumn<DaneTabeliJezdzcow, String> Data;
@@ -22,6 +33,7 @@ public class TabelaJezdzcowController implements Initializable {
 
     @FXML LineChart<String, Number> Wykres;
     
+    ObservableList<HashMap<String, String>> Wynik = FXCollections.observableArrayList();
     ObservableList<DaneTabeliJezdzcow> Wyniki = FXCollections.observableArrayList();
     
     @Override
@@ -33,23 +45,60 @@ public class TabelaJezdzcowController implements Initializable {
         Kolejnosc.setCellValueFactory(new PropertyValueFactory<DaneTabeliJezdzcow, Integer>("Kolejnosc"));
         
         XYChart.Series<String, Number> DaneDoWykresu = new XYChart.Series<>();
+        XYChart.Series<String, Number> Srednia = new XYChart.Series<>();
+        DaneDoWykresu.setName(jezdziec);
+        Srednia.setName("średnia");
         
-        Wyniki.add(new DaneTabeliJezdzcow("12/12/2016","Abdul",4,5));
-        Wyniki.add(new DaneTabeliJezdzcow("12/13/2016","Cbdul",2,1));
-        Wyniki.add(new DaneTabeliJezdzcow("12/14/2016","Dbdul",6,2));
-        Wyniki.add(new DaneTabeliJezdzcow("12/15/2016","Fbdul",5,3));
-        Wyniki.add(new DaneTabeliJezdzcow("12/16/2016","Tbdul",2,4));
-        Wyniki.add(new DaneTabeliJezdzcow("12/17/2016","Rbdul",1,6));
-        Wyniki.add(new DaneTabeliJezdzcow("12/18/2016","Wbdul",7,7));
+        try {
+            Wynik = daneHistoryczne.zwrocDaneGonitwDlaObiektu("dzokej", jezdziec, start, parametry);
+        } catch (SQLException ex) {
+            Logger.getLogger(TabelaJezdzcowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        String data = "";
+        String kon = "";
+        int nrStartowy = 0;
+        int kolejnosc = 0;
+        
+        System.out.println(Wynik);
+        for(HashMap<String, String> map: Wynik){
+            for(String klucz: map.keySet()) {
+                switch(klucz) {
+                   
+                    case "data gonitwy":
+                        data = map.get(klucz).trim();
+                        break;
+                    case "nazwa":
+                        kon = map.get(klucz).trim();
+                        break;
+                    case "nr startowy":
+                        nrStartowy = Integer.valueOf(map.get(klucz));
+                        break;
+                    case "miejsce":
+                        kolejnosc = Integer.valueOf(map.get(klucz));
+                    break;
+                }
+                 
+            }
+            Wyniki.add(new DaneTabeliJezdzcow(data,kon,nrStartowy,kolejnosc));
+        }
         Tabela.setItems(Wyniki);
         
         int i;
+ 
         for(i = 0;i < Wyniki.size(); i++){
             
-            DaneDoWykresu.getData().add(new XYChart.Data(Wyniki.get(i).getData(),Wyniki.get(i).getKolejnosc()*-1));
+            DaneDoWykresu.getData().add(new XYChart.Data("wyscig: " + (i + 1) + " " + Wyniki.get(i).getData(),Wyniki.get(i).getKolejnosc()*-1));
         }
-   
         Wykres.getData().addAll(DaneDoWykresu);
-    }       
+    } 
+    
+    public static void getJezdziec(String jezdziec){
+        TabelaJezdzcowController.jezdziec = jezdziec;
+    }
+    
+    public static void getStart(String start){
+        TabelaJezdzcowController.start = start;
+    }
+
 }

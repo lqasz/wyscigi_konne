@@ -22,7 +22,7 @@ public class WyscigiKonne
     {
         try {
             WyliczWskazniki Test = new WyliczWskazniki();
-            Test.wybierzWskaznikiDlaKoni();
+            Test.wybierzWskaznikiDlaZespolu();
             
         } catch (SQLException ex) {
             Logger.getLogger(WyscigiKonne.class.getName()).log(Level.SEVERE, null, ex);

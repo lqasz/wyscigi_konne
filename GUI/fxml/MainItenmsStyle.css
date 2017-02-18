@@ -1,0 +1,36 @@
+#tlo{
+    -fx-background-color: linear-gradient(to bottom, #33ccff -75%, #ff99cc 100%);
+}
+
+#symulacja{
+    -fx-padding: 4 5 5 5;
+    -fx-background-radius: 15;
+    -fx-background-color: #F7786B;
+}
+
+#wyniki{
+    -fx-padding: 4 5 5 5;
+    -fx-background-radius: 15;
+    -fx-background-color: #F7786B;
+}
+
+#dodaj{
+    -fx-padding: 4 5 5 5;
+    -fx-background-radius: 15;
+    -fx-background-color: #F7786B;
+}
+
+#opisS{
+    -fx-text-alignment: center; 
+    -fx-text-fill: #FFFFE0;
+}
+
+#opisW{
+    -fx-text-alignment: center; 
+    -fx-text-fill: #FFFFE0;
+}
+
+#opisD{
+   -fx-text-alignment: center; 
+   -fx-text-fill: #FFFFE0;
+}

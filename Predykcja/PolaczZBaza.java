@@ -14,16 +14,10 @@ import java.sql.Statement;
  *
  * @author Admin
  */
-public abstract class PolaczZBaza 
+public abstract class PolaczZBaza implements IDanePolaczenia
 {
     private Connection polaczenie;
     protected Statement uchwytDoBazy;
-    
-    private final String SERWER_BAZY_DANYCH = "localhost";
-    private final String PORT_BAZY_DANYCH = "3306";
-    private final String NAZWA_BAZY_DANYCH = "test";
-    private final String UZYTKOWNIK = "root";
-    private final String HASLO = "";
     
     /**
      * Konstruktor łączący się z bazą danych
