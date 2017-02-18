@@ -7,7 +7,6 @@ package wyscigi_konne.Predykcja;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,48 +20,32 @@ public class DaneHistoryczne extends PolaczZBaza
     /**
      *
      * @param dataGonitwy
+     * @param numerGonitwy
+     * @param parametry
      * @return
      * @throws SQLException
      */
-    public ObservableList<HashMap> zwrocDaneGonitwy(String dataGonitwy) throws SQLException
+    public ObservableList<HashMap<String, String>> zwrocDaneGonitwy(String dataGonitwy, String numerGonitwy, String[] parametry) throws SQLException
     {
         ResultSet wynikZapytania;
-        ObservableList<HashMap> daneWynikowe = FXCollections.observableArrayList();
-        String zapytanie = "SELECT `nazwa`, `jezdziec`, `miejsce`, `nr startowy`,`dystans`, `czas`, `temperatura`, `styl`, `odleglosci`, `stan toru`, `rekordy` "
+        ObservableList<HashMap<String, String>> daneWynikowe = FXCollections.observableArrayList();
+        String zapytanie = "SELECT * "
                             + "FROM `informacje` "
                             + "INNER JOIN `gonitwainformacje` ON(`informacje`.`id` = `id informacji`) "
                             + "INNER JOIN `gonitwa` ON(`gonitwa`.`id` = `id gonitwy`) "
                             + "INNER JOIN `dzokeje` ON(`dzokeje`.`id` = `id dzokeja`) "
                             + "INNER JOIN `konie` ON(`konie`.`id` = `id konia`) "
                             + "WHERE `data gonitwy` = '"+ dataGonitwy +"' AND `gonitwa`.`usunieto` = 0 "
+                            + "AND `nr gonitwy` = "+ numerGonitwy +" "
                             + "ORDER BY `dystans` ASC";
         
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
-            String dystans = wynikZapytania.getString("dystans");
-            String miejsce = wynikZapytania.getString("miejsce");
-            String numerStartowy = wynikZapytania.getString("nr startowy");
-            String jezdziec = wynikZapytania.getString("jezdziec");
-            String nazwaKonia = wynikZapytania.getString("nazwa");
-            String czas = wynikZapytania.getString("czas");
-            String temperatura = wynikZapytania.getString("temperatura");
-            String styl = wynikZapytania.getString("styl");
-            String odleglosci = wynikZapytania.getString("odleglosci");
-            String stanToru = wynikZapytania.getString("stan toru");
-            String rekordy = wynikZapytania.getString("rekordy");
-            
             HashMap<String, String> dane = new HashMap();
-            dane.put("dystans", dystans);
-            dane.put("miejsce", miejsce);
-            dane.put("numerStartowy", numerStartowy);
-            dane.put("jezdziec", jezdziec);
-            dane.put("nazwa konia", nazwaKonia);
-            dane.put("czas", czas);
-            dane.put("temperatura", temperatura);
-            dane.put("styl", styl);
-            dane.put("odleglosci", odleglosci);
-            dane.put("stan toru", stanToru);
-            dane.put("rekordy", rekordy);
+            for(String parametr: parametry) {
+                String cecha = wynikZapytania.getString(parametr);
+                dane.put(parametr, cecha);
+            }
             
             daneWynikowe.add(dane);
         }
@@ -155,61 +138,42 @@ public class DaneHistoryczne extends PolaczZBaza
      *
      * @param obiekt
      * @param nazwaObiektu
+     * @param sezon
+     * @param parametry
      * @return
      * @throws SQLException
      */
-    public ObservableList<HashMap> zwrocDaneGonitwDlaObiektu(String obiekt, String nazwaObiektu) throws SQLException
+    public ObservableList<HashMap<String, String>> zwrocDaneGonitwDlaObiektu(String obiekt, String nazwaObiektu, String sezon, String[] parametry) throws SQLException
     {
         ResultSet wynikZapytania;
-        String nazwaWiersza1, nazwaWiersza2;
-        ObservableList<HashMap> daneWynikowe = FXCollections.observableArrayList();
+        String nazwaWiersza;
+        ObservableList<HashMap<String, String>> daneWynikowe = FXCollections.observableArrayList();
         
         if("dzokej".equals(obiekt)) {
-            nazwaWiersza1 = "nazwa";
-            nazwaWiersza2 = "jezdziec";
+            nazwaWiersza = "jezdziec";
         } else {
-            nazwaWiersza1 = "jezdziec";
-            nazwaWiersza2 = "nazwa";
+            nazwaWiersza = "nazwa";
         }
         
-        String zapytanie = "SELECT `miejsce`, `nr startowy`, `data gonitwy`, `"+ nazwaWiersza1 +"`, `wycofano`, `dystans`, `czas`, `temperatura`, `styl`, `odleglosci`, `stan toru`, `rekordy` "
+        String zapytanie = "SELECT * "
                             + "FROM `konie` "
                             + "INNER JOIN `gonitwa` ON(`konie`.`id` = `id konia`) "
                             + "INNER JOIN `dzokeje` ON(`dzokeje`.`id` = `id dzokeja`) "
                             + "INNER JOIN `gonitwainformacje` ON(`gonitwa`.`id` = `id gonitwy`)"
                             + "INNER JOIN `informacje` ON(`informacje`.`id` = `id informacji`)"
-                            + "WHERE `"+ nazwaWiersza2 +"` = '"+ nazwaObiektu +"' "
+                            + "WHERE `"+ nazwaWiersza +"` = '"+ nazwaObiektu +"' "
+                                + "AND YEAR(`data gonitwy`) = '"+ sezon +"' "
                             + "ORDER BY `data gonitwy` ASC";
         
         
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
-            String miejsce = wynikZapytania.getString("miejsce");
-            String nrStartowy = wynikZapytania.getString("nr startowy");
-            String dataGonitwy = wynikZapytania.getString("data gonitwy");
-            String obiektGonitwy = wynikZapytania.getString(nazwaWiersza1);
-            String wycofano = wynikZapytania.getString("wycofano");
-            String dystans = wynikZapytania.getString("dystans");
-            String czas = wynikZapytania.getString("czas");
-            String temperatura = wynikZapytania.getString("temperatura");
-            String styl = wynikZapytania.getString("styl");
-            String odleglosci = wynikZapytania.getString("odleglosci");
-            String stanToru = wynikZapytania.getString("stan toru");
-            String rekordy = wynikZapytania.getString("rekordy");
-            
             HashMap<String, String> dane = new HashMap();
-            dane.put("miejsce", miejsce);
-            dane.put("nr startowy", nrStartowy);
-            dane.put("data gonitwy", dataGonitwy);
-            dane.put(nazwaWiersza1, obiektGonitwy);
-            dane.put("wycofano", wycofano);
-            dane.put("dystans", dystans);
-            dane.put("czas", czas);
-            dane.put("temperatura", temperatura);
-            dane.put("styl", styl);
-            dane.put("odleglosci", odleglosci);
-            dane.put("stan toru", stanToru);
-            dane.put("rekordy", rekordy);
+            
+            for(String parametr: parametry) {
+                String cecha = wynikZapytania.getString(parametr);
+                dane.put(parametr, cecha);
+            }
             
             daneWynikowe.add(dane);
         }
@@ -224,11 +188,11 @@ public class DaneHistoryczne extends PolaczZBaza
      * @return
      * @throws SQLException
      */
-    public ArrayList<Integer> daneDoWykresuDlaObiektu(String obiekt, String nazwaObiektu) throws SQLException
+    public ObservableList<Integer> daneDoWykresuDlaObiektu(String obiekt, String nazwaObiektu) throws SQLException
     {
         ResultSet wynikZapytania;
         String nazwaWiersza;
-        ArrayList<Integer> daneWynikowe = new ArrayList<>();
+        ObservableList<Integer> daneWynikowe = FXCollections.observableArrayList();
         
         if("dzokej".equals(obiekt)) {
             nazwaWiersza = "jezdziec";
@@ -244,6 +208,50 @@ public class DaneHistoryczne extends PolaczZBaza
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             daneWynikowe.add(wynikZapytania.getInt("miejsce"));
+        }
+        
+        return daneWynikowe;
+    }
+    
+    /**
+     *
+     * @param tabela
+     * @param pole
+     * @return
+     * @throws SQLException
+     */
+    public ObservableList<String> polaDoComboBox(String tabela, String pole) throws SQLException
+    {
+        ResultSet wynikZapytania;
+        ObservableList<String> daneWynikowe = FXCollections.observableArrayList();
+        
+        String zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
+        System.out.println(zapytanie);
+        
+        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        while(wynikZapytania.next()) {
+            daneWynikowe.add(wynikZapytania.getString("pole"));
+        }
+        
+        return daneWynikowe;
+    }
+    
+    /**
+     *
+     * @param dataGonitwy
+     * @return
+     * @throws SQLException
+     */
+    public ObservableList<Integer> iloscGonitw(String dataGonitwy) throws SQLException
+    {
+        ResultSet wynikZapytania;
+        ObservableList<Integer> daneWynikowe = FXCollections.observableArrayList();
+        
+        String zapytanie = "SELECT DISTINCT `nr gonitwy` FROM `gonitwa` WHERE `usunieto` = 0 AND `data gonitwy` = '"+ dataGonitwy +"'";
+        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        
+        while(wynikZapytania.next()) {
+            daneWynikowe.add(wynikZapytania.getInt("nr gonitwy"));
         }
         
         return daneWynikowe;

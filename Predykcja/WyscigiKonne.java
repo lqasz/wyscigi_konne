@@ -6,8 +6,11 @@
 package wyscigi_konne.Predykcja;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -21,8 +24,9 @@ public class WyscigiKonne
     public static void main(String[] args)
     {
         try {
-            WyliczWskazniki Test = new WyliczWskazniki();
-            Test.wybierzWskaznikiDlaZespolu();
+            String[] dane = new String[]{"jezdziec", "nazwa", "nr gonitwy", "miejsce"};
+            DaneHistoryczne Test = new DaneHistoryczne();
+            System.out.println(Test.zwrocDaneGonitwDlaObiektu("kon", "Invisible Dubai", "2016", dane));
             
         } catch (SQLException ex) {
             Logger.getLogger(WyscigiKonne.class.getName()).log(Level.SEVERE, null, ex);

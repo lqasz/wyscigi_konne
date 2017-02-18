@@ -60,8 +60,9 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             ResultSet zapytanieNazwaKonia = this.uchwytDoBazy.executeQuery("SELECT `nazwa` FROM `konie` WHERE `id` = '"+ dane[1] +"'");
             zapytanieNazwaKonia.next();
             String nazwaKonia = zapytanieNazwaKonia.getString("nazwa");
+            String[] parametry = new String[]{"miejsce", "stan toru", "styl", "wycofano", "dystans", "rekordy", "jezdziec", "temperatura"};
             
-            ObservableList<HashMap> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia);
+            ObservableList<HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia, "2016", parametry);
 
             if(strukturaDanych.get(dane[0]) == null) {
                 daneWskaznikowe = new HashMap<>();
