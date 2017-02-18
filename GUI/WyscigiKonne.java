@@ -56,10 +56,30 @@ public class WyscigiKonne extends Application{
         
         Scene scene = new Scene(statsWindow);
         noweOkno.setScene(scene);
-        noweOkno.show();
+        noweOkno.showAndWait();
+    }
+    
+    public static void showAlertBox() throws IOException{
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(WyscigiKonne.class.getResource("fxml/AllertBox.fxml"));
+        BorderPane allertWindow = (BorderPane)loader.load();
+        
+        Stage noweOkno = new Stage();
+        noweOkno.setTitle("Bład");
+        noweOkno.initModality(Modality.WINDOW_MODAL);
+        noweOkno.initOwner(primaryStage);
+        
+        Scene scene = new Scene(allertWindow);
+        noweOkno.setScene(scene);
+        noweOkno.showAndWait();
     }
    
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void showNewView(String fxmlprzewidywanieSymulacjafxml) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

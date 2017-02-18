@@ -1,0 +1,49 @@
+#tlo{
+    -fx-background-color: linear-gradient(to bottom, #33ccff -75%, #ff99cc 100%);
+}
+
+#opisD{
+    fx-text-alignment: center; 
+   -fx-text-fill: #FFFFE0;
+}
+
+#opisB{
+   -fx-text-alignment: center; 
+   -fx-text-fill: #FFFFE0;
+}
+
+#wyniki{
+    -fx-padding: 4 5 5 5;
+    -fx-background-radius: 15;
+    -fx-background-color:  #92B6D5;
+    -fx-font-weight: bold;  
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+}
+
+#powrot{
+    -fx-padding: 4 5 5 5;
+    -fx-background-radius: 15;
+    -fx-background-color:  #92B6D5;
+    -fx-font-weight: bold;  
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+}
+
+#WyborDaty{
+    -fx-padding: 3 3 3 3;
+    -fx-background-radius: 15;
+    -fx-background-color:  #F7786B;
+    -fx-font-weight: bold;  
+    -fx-font-size: 1.3em;
+    -fx-text-base-fill: #FFFFE0;
+}
+
+#WyborBiegu{
+    -fx-padding: 3 3 3 3;
+    -fx-background-radius: 15;
+    -fx-background-color:  #F7786B;
+    -fx-font-weight: bold;  
+    -fx-font-size: 1.3em;
+    -fx-text-base-fill: #FFFFE0;
+}

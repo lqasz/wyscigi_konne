@@ -164,8 +164,7 @@ public class DaneHistoryczne extends PolaczZBaza
                             + "WHERE `"+ nazwaWiersza +"` = '"+ nazwaObiektu +"' "
                                 + "AND YEAR(`data gonitwy`) = '"+ sezon +"' "
                             + "ORDER BY `data gonitwy` ASC";
-        
-        
+
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             HashMap<String, String> dane = new HashMap();
@@ -226,11 +225,10 @@ public class DaneHistoryczne extends PolaczZBaza
         ObservableList<String> daneWynikowe = FXCollections.observableArrayList();
         
         String zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
-        System.out.println(zapytanie);
         
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
-            daneWynikowe.add(wynikZapytania.getString("pole"));
+            daneWynikowe.add(wynikZapytania.getString("pole").trim());
         }
         
         return daneWynikowe;

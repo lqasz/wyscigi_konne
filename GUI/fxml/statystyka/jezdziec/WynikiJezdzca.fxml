@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="tlo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@WynikiJezdzcaStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.statystyka.jezdziec.WynikiJezdzcaController">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0">
+         <children>
+            <Label fx:id="opisJ" text="Wybierz jeźdżca">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="WyborJezdzca" onAction="#dodajBiegi" prefWidth="150.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/jeździec.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="20.0" BorderPane.alignment="CENTER_LEFT">
+         <children>
+            <Label fx:id="opisS" text="Wybierz sezon">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="WyborSezonu" prefWidth="150.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/data.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets top="30.0" />
+         </padding>
+      </VBox>
+   </right>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="wyniki" mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="powrot" mnemonicParsing="false" onAction="#goDotychczasoweWyniki" prefWidth="150.0" text="Powrót">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

@@ -176,7 +176,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
                     wartosc = (stylZespolu.get(daneGonitw.get(klucz)) != null) ? stylZespolu.get(daneGonitw.get(klucz)) : 1;
                     break;
                 case "wycofano":
-                    wartosc = (wycofanoZespol.get(daneGonitw.get(klucz)) != null) ? wycofanoZespol.get(daneGonitw.get(klucz)) : 0;
+                    wartosc = (wycofanoZespol.get(daneGonitw.get(klucz)) != 0) ? 1 : 0;
                     break;
                 case "dystans":
                     wartosc = Integer.valueOf(daneGonitw.get(klucz));
@@ -200,6 +200,11 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             
             if(!"data gonitwy".equals(klucz) && !"nr startowy".equals(klucz) && !"odleglosci".equals(klucz) && !"czas".equals(klucz)) {
                 wartoscWskaznika += wartosc;
+                
+                if("stan toru".equals(klucz)) {
+                    klucz = "stan_tory";
+                }
+                
                 daneWskaznikowe.put(klucz, wartoscWskaznika);
             }
         }
@@ -262,5 +267,10 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             Logger.getLogger(WyliczWskazniki.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public String zwrocIdObiektu(String nazwa, String tabela) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -25,8 +25,8 @@ public class WyscigiKonne
     {
         try {
             String[] dane = new String[]{"jezdziec", "nazwa", "nr gonitwy", "miejsce"};
-            DaneHistoryczne Test = new DaneHistoryczne();
-            System.out.println(Test.zwrocDaneGonitwDlaObiektu("kon", "Invisible Dubai", "2016", dane));
+            WyliczWskazniki Test = new WyliczWskazniki();
+            Test.wybierzWskaznikiDlaZespolu();
             
         } catch (SQLException ex) {
             Logger.getLogger(WyscigiKonne.class.getName()).log(Level.SEVERE, null, ex);

@@ -9,28 +9,28 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
-import wyscigi_konne.GUI.DaneDoTestow;
 
 public class WykresController implements Initializable {
-   
-   DaneDoTestow test = new DaneDoTestow();
 
     @FXML PieChart wykres;
-    
+   
     ObservableList<Data> dane = FXCollections.observableArrayList();
+    static ObservableList<ElementyTabeli> daneDoWykresu = FXCollections.observableArrayList();
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {  
-        
-        dane.clear();
-        
-        DaneDoTestow test = new DaneDoTestow();
-        for(int i = 0; i < test.tabela.length; i++){
-            
-            dane.add(new PieChart.Data(test.tabelaI[i],test.tabela[i]));
+    public void initialize(URL url, ResourceBundle rb){ 
+ 
+        int i;
+        for(i=0;i<daneDoWykresu.size();i++){
+            dane.add(new PieChart.Data("Jeździec:  " + daneDoWykresu.get(i).getJezdziec() + " na koniu: " + daneDoWykresu.get(i).getKon(),i));
         }
+ 
         wykres.setLegendSide(Side.RIGHT);
         wykres.setData(dane);
+    }  
+
+    public static void getDane(ObservableList<ElementyTabeli> daneTabeli) {
+        daneDoWykresu = daneTabeli;
     }
 }    
     
