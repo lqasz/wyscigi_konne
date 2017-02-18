@@ -91,7 +91,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
         for(String idZespolu: strukturaDanych.keySet()) {
             String[] czlonkowieZespolu = this.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
             
-            GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(czlonkowieZespolu[0], czlonkowieZespolu[1]);
+            ZwrocStatystykiDlaZespolu grupowanieZespolow = new ZwrocStatystykiDlaZespolu(czlonkowieZespolu[0], czlonkowieZespolu[1]);
             strukturaDanych.put(idZespolu, grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu)));
             
             iterator++;
