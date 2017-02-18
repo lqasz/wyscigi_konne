@@ -51,7 +51,7 @@
       </VBox>
    </right>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" spacing="150.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="powrot" mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
                <font>

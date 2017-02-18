@@ -12,10 +12,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import wyscigi_konne.GUI.WyscigiKonne;
@@ -28,6 +31,17 @@ public class SymulacjaController implements Initializable {
     private WyscigiKonne pokaz;
     
     private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
+    
+    @FXML BorderPane tlo;
+    
+    @FXML Label opisWD;
+    @FXML Label opisWK;
+    @FXML Label opisWJ;
+    
+    @FXML Button dodaj;
+    @FXML Button usun;
+    @FXML Button wyniki;
+    @FXML Button powrot;
          
     @FXML public ComboBox WyborDystansu; 
     @FXML public ComboBox WyborKonia;
@@ -79,11 +93,13 @@ public class SymulacjaController implements Initializable {
         String dystans;
         
         HashMap<String[], String> zespoly = new HashMap<>();
-        for(int i = 0; i<daneTabeli.size();i++){
-            dystans = WyborDystansu.getSelectionModel().getSelectedItem().toString();
-            zespoly.put(new String[]{daneTabeli.get(i).getKon().toString(), daneTabeli.get(i).getJezdziec().toString()},dystans);   
-        }
-           
+            for(int i = 0; i<daneTabeli.size();i++){
+                dystans = WyborDystansu.getSelectionModel().getSelectedItem().toString();
+                zespoly.put(new String[]{daneTabeli.get(i).getKon().toString(), daneTabeli.get(i).getJezdziec().toString()},dystans);   
+            }
+            
+            System.out.println(zespoly);
+            
         return zespoly;
     }
     
@@ -103,7 +119,7 @@ public class SymulacjaController implements Initializable {
          }else{
             
             daneTabeli.add(new ElementyTabeli(WyborKonia.getSelectionModel().getSelectedItem().toString(), 
-            WyborJezdzca.getSelectionModel().getSelectedItem().toString()));
+                                          WyborJezdzca.getSelectionModel().getSelectedItem().toString()));
             konie.remove(WyborKonia.getSelectionModel().getSelectedItem().toString());
             jezdzcy.remove(WyborJezdzca.getSelectionModel().getSelectedItem().toString());
        
@@ -126,9 +142,17 @@ public class SymulacjaController implements Initializable {
        WyborJezdzca.setItems(jezdzcy);
     }
     
+    private HashMap<String, Double> pobierzWyniki() throws SQLException, ParserConfigurationException, SAXException, IOException{
+        
+        GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(zwrocZespoly());
+        HashMap<String, Double> wskazniki = grupowanieZespolow.zwrocWskaznikiDlaZespolow();
+        System.out.println(wskazniki);
+        return wskazniki;
+    } 
+    
     //Metoda otwiera nowe okno
     @FXML
-    private void goNewWindow(ActionEvent event) throws IOException, ParserConfigurationException, SAXException {
+    private void goNewWindow(ActionEvent event) throws IOException, SQLException, ParserConfigurationException, SAXException {
     
         if(WyborDystansu.getSelectionModel().getSelectedItem() == null){
             
@@ -141,21 +165,16 @@ public class SymulacjaController implements Initializable {
             pokaz.showAlertBox();
             
         }else{
-            try {
-                GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(zwrocZespoly());
-                HashMap<String, Double> wskazniki = grupowanieZespolow.zwrocWskaznikiDlaZespolow();
-                WykresController.getDane(daneTabeli);
-                pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
-            } catch (SQLException ex) {
-                Logger.getLogger(SymulacjaController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            WykresController.getMape(pobierzWyniki());
+            WykresController.getDane(daneTabeli);  
+            pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
         } 
     }
 
     //Metoda zmienia widok bieżącego okna
     @FXML
-    private void goMainItems(ActionEvent event) throws IOException {
-        
+    private void goMainItems(ActionEvent event) throws IOException{
+
         pokaz.showView("fxml/MainItems.fxml");
     }
 }

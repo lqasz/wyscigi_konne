@@ -88,9 +88,12 @@ public class GrupowanieZespolow
             
             for(String tag: nazwyTagow) {
                 NodeList lista = elementGlowny.getElementsByTagName(tag);
-                NodeList podLista = lista.item(0).getChildNodes();
-                
-                wskazniki.put(tag, podLista.item(0).getNodeValue());
+                if(lista.item(0) != null) {
+                    NodeList podLista = lista.item(0).getChildNodes();
+                    if(podLista.item(0) != null) {
+                        wskazniki.put(tag, podLista.item(0).getNodeValue());
+                    }
+                }
             }
             
             daneZespolow.put(idZespolu, wskazniki);
@@ -119,29 +122,32 @@ public class GrupowanieZespolow
                     
                     
                     for(String tag: nazwyTagow) {
-                        switch(tag) {
-                            case "maksimum":
-                            case "odchylenieStandardowe":
-                            case "srednia":
-                            case "minimum":
-                            case "minimumNaSrednia":
-                            case "maksimumNaSrednia":
-                            case "sredniaNaSrednia":
-                                wartosc = (Double.valueOf(daneZespolu1.get(tag))) / (Double.valueOf(daneZespolu2.get(tag)));
-                                break;
-                            case "wycofano":
-                                wartosc = (Integer.valueOf(daneZespolu1.get(tag)) != 0) ? 0 : Integer.valueOf(daneZespolu1.get(tag)) * (-2);
-                                break;
-                            case "grupa":
-                            case "rekordy":
-                                wartosc = Integer.valueOf(daneZespolu1.get(tag));
-                                break;
-                            case "rozstep":
-                                wartosc = (Integer.valueOf(daneZespolu1.get(tag)) == 0) ? 1 : Integer.valueOf(daneZespolu1.get(tag));
-                                break;
-                        }
+                        if(daneZespolu1.get(tag) != null) {
+                            switch(tag) {
+                                case "maksimum":
+                                case "odchylenieStandardowe":
+                                case "srednia":
+                                case "minimum":
+                                case "minimumNaSrednia":
+                                case "maksimumNaSrednia":
+                                case "sredniaNaSrednia":
+                                    wartosc = (Double.valueOf(daneZespolu1.get(tag))) / (Double.valueOf(daneZespolu2.get(tag)));
+                                    break;
+                                case "wycofano":
+                                    wartosc = (Integer.valueOf(daneZespolu1.get(tag)) != 0) ? 0 : Integer.valueOf(daneZespolu1.get(tag)) * (-2);
+                                    break;
+                                case "grupa":
+                                case "rekordy":
+                                    System.out.println(daneZespolu1.get(tag));
+                                    wartosc = Integer.valueOf(daneZespolu1.get(tag));
+                                    break;
+                                case "rozstep":
+                                    wartosc = (Integer.valueOf(daneZespolu1.get(tag)) == 0) ? 1 : Integer.valueOf(daneZespolu1.get(tag));
+                                    break;
+                            }
                         
-                        wspolczynnik += wartosc;
+                            wspolczynnik += wartosc;
+                        }
                     }
                     
                     wskaznikZespolu.put(idZespolu1, wspolczynnik);
@@ -151,13 +157,20 @@ public class GrupowanieZespolow
             
             if(maxWspolczynnik < wspolczynnik)  maxWspolczynnik = wspolczynnik;
             
-            System.out.println("Wsp: "+ wspolczynnik +", id zespołu1: "+ idZespolu1);
             gotowe.add(idZespolu1);
         }
         
         for(String idZespolu: wskaznikZespolu.keySet()) {
+            double iterator = 0;
             double wsp = wskaznikZespolu.get(idZespolu)/maxWspolczynnik;
-            wskaznikZespolu.put(idZespolu, wsp);
+            
+            for(double i = 0; i <= 1.1; i += 0.05) {
+                if(wsp < i) {
+                    wskaznikZespolu.put(idZespolu, iterator);
+                    break;
+                }
+                iterator += 0.5;
+            }
         }
     }
     
@@ -165,10 +178,10 @@ public class GrupowanieZespolow
     {
         HashMap<String, Double> wskaznikowDlaZespolow = new HashMap<>();
         
-        for(String idZespolu: wskaznikZespolu.keySet()) {
+        wskaznikZespolu.keySet().forEach((idZespolu) -> {
             String[] zespol = informacje.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
-            wskaznikowDlaZespolow.put(zespol[0], wskaznikZespolu.get(idZespolu));
-        }
+            wskaznikowDlaZespolow.put(zespol[0].trim(), wskaznikZespolu.get(idZespolu));
+        });
         
         System.out.println(wskaznikowDlaZespolow);
         return wskaznikowDlaZespolow;

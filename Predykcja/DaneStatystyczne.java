@@ -35,4 +35,16 @@ public class DaneStatystyczne extends PolaczZBaza
         wynikZapytania.next();
         return wynikZapytania.getInt("statystyka");
     }
+    
+    public String[] zwrocPrzedzialDat(String nazwaKonia) throws SQLException
+    {
+        ResultSet wynikZapytania;
+        
+        String zapytanie = "SELECT MIN(`data gonitwy`) AS `pocz`, MAX(`data gonitwy`) AS `kon` FROM `gonitwa` WHERE `usunieto` = 0";
+        
+        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania.next();
+        
+        return new String[] {wynikZapytania.getString("pocz"), wynikZapytania.getString("kon")};
+    }
 }

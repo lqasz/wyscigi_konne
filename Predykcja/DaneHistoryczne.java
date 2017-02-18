@@ -221,10 +221,15 @@ public class DaneHistoryczne extends PolaczZBaza
      */
     public ObservableList<String> polaDoComboBox(String tabela, String pole) throws SQLException
     {
+        String zapytanie;
         ResultSet wynikZapytania;
         ObservableList<String> daneWynikowe = FXCollections.observableArrayList();
-        
-        String zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
+
+        if(pole.equals("YEAR(`data gonitwy`)")) {
+            zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
+        } else {
+            zapytanie = "SELECT DISTINCT `"+ pole +"` AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0 ORDER BY `"+ pole +"` ASC";
+        }
         
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
@@ -252,6 +257,7 @@ public class DaneHistoryczne extends PolaczZBaza
             daneWynikowe.add(wynikZapytania.getInt("nr gonitwy"));
         }
         
+        this.uchwytDoBazy.closeOnCompletion();
         return daneWynikowe;
     }
 }

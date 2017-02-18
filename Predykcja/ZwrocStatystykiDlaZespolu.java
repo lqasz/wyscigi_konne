@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author Admin
  */
-public class ZwrocStatystykiDlaZespolu implements IPrzetworzenieDanych
+public class ZwrocStatystykiDlaZespolu
 {
     private final String nazwaKonia;
     
@@ -31,11 +31,12 @@ public class ZwrocStatystykiDlaZespolu implements IPrzetworzenieDanych
     {
         HashMap<String, Integer> analityka = new HashMap<>();
         DaneStatystyczne daneStatystyczne = new DaneStatystyczne();
+        String[] daty = daneStatystyczne.zwrocPrzedzialDat(nazwaKonia);
         
-        int srednia = daneStatystyczne.obliczStatystykeDlaObiektu("AVG", "2016-04-17", "2016-04-17", "kon", nazwaKonia),
-                maksimum = daneStatystyczne.obliczStatystykeDlaObiektu("MAX", "2016-04-17", "2016-04-17", "kon", nazwaKonia),
-                minimum = daneStatystyczne.obliczStatystykeDlaObiektu("MIN", "2016-04-17", "2016-04-17", "kon", nazwaKonia),
-                odchylenieStandardowe = daneStatystyczne.obliczStatystykeDlaObiektu("STD", "2016-04-17", "2016-04-17", "kon", nazwaKonia);
+        int srednia = daneStatystyczne.obliczStatystykeDlaObiektu("AVG", daty[0], daty[1], "kon", nazwaKonia),
+                maksimum = daneStatystyczne.obliczStatystykeDlaObiektu("MAX", daty[0], daty[1], "kon", nazwaKonia),
+                minimum = daneStatystyczne.obliczStatystykeDlaObiektu("MIN", daty[0], daty[1], "kon", nazwaKonia),
+                odchylenieStandardowe = daneStatystyczne.obliczStatystykeDlaObiektu("STD", daty[0], daty[1], "kon", nazwaKonia);
         
         analityka.put("srednia", 100 - srednia);
         analityka.put("maksimum", 100 - maksimum);
@@ -44,12 +45,4 @@ public class ZwrocStatystykiDlaZespolu implements IPrzetworzenieDanych
         
         return analityka;
     }
-    
-    
-    
-    @Override
-    public void Standaryzuj() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
