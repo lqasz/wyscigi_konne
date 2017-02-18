@@ -3,6 +3,7 @@ package wyscigi_konne.GUI.fxml.przewidywanie;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,7 @@ public class SymulacjaController implements Initializable {
     @FXML public TableView<ElementyTabeli> Tabela;
     @FXML public TableColumn<ElementyTabeli,String> KolumnaKoni;
     @FXML public TableColumn<ElementyTabeli,String> KolumnaJezdzcow;
-   
+    
     ObservableList<String> dystans = FXCollections.observableArrayList();
     ObservableList<String> konie = FXCollections.observableArrayList();
     ObservableList<String> jezdzcy = FXCollections.observableArrayList();
@@ -42,33 +43,73 @@ public class SymulacjaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        KolumnaKoni.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("kon"));
+        KolumnaJezdzcow.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("jezdziec"));
+        
         try {
-            dystans = daneHistoryczne.polaDoComboBox("informacje", "data dystans");
+            dystans = daneHistoryczne.polaDoComboBox("informacje", "dystans");
         } catch (SQLException ex) {
             Logger.getLogger(SymulacjaController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    
         WyborDystansu.setItems(dystans);
-        WyborKonia.setItems(konie);
-        WyborJezdzca.setItems(jezdzcy);
         
-        KolumnaKoni.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("kon"));
-        KolumnaJezdzcow.setCellValueFactory(new PropertyValueFactory<ElementyTabeli,String>("jezdziec"));
-    }    
+        try {
+            konie = daneHistoryczne.polaDoComboBox("konie", "nazwa");
+        } catch (SQLException ex) {
+            Logger.getLogger(SymulacjaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        WyborKonia.setItems(konie);
+        
+        try {
+            jezdzcy = daneHistoryczne.polaDoComboBox("dzokeje", "jezdziec");
+        } catch (SQLException ex) {
+            Logger.getLogger(SymulacjaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        WyborJezdzca.setItems(jezdzcy);        
+    } 
+    
+    public HashMap<String[],String> zwrocZespoly(){
+        
+        String dystans;
+        
+        HashMap<String[], String> zespoly = new HashMap<>();
+            for(int i = 0; i<daneTabeli.size();i++){
+                dystans = WyborDystansu.getSelectionModel().getSelectedItem().toString();
+                zespoly.put(new String[]{daneTabeli.get(i).getKon().toString(), daneTabeli.get(i).getJezdziec().toString()},dystans);   
+            }
+            
+            System.out.println(zespoly);
+            
+        return zespoly;
+    }
     
     //Metoda dodaje zespół do tabeli i usuwa wybrane pozycje z Comboboxów
     @FXML
-    private void dodajZespol(ActionEvent event) {
-        
-        daneTabeli.add(new ElementyTabeli(WyborKonia.getSelectionModel().getSelectedItem().toString(), 
+    private void dodajZespol(ActionEvent event) throws IOException {
+         if(WyborKonia.getSelectionModel().getSelectedItem() == null){
+            
+            AllertBoxController.getTekst("Wybierz konia");
+            pokaz.showAlertBox();
+            
+         }else if(WyborJezdzca.getSelectionModel().getSelectedItem() == null){
+             
+            AllertBoxController.getTekst("Wybierz jeźdżca");
+            pokaz.showAlertBox();
+            
+         }else{
+            
+            daneTabeli.add(new ElementyTabeli(WyborKonia.getSelectionModel().getSelectedItem().toString(), 
                                           WyborJezdzca.getSelectionModel().getSelectedItem().toString()));
-        konie.remove(WyborKonia.getSelectionModel().getSelectedItem().toString());
-        jezdzcy.remove(WyborJezdzca.getSelectionModel().getSelectedItem().toString());
+            konie.remove(WyborKonia.getSelectionModel().getSelectedItem().toString());
+            jezdzcy.remove(WyborJezdzca.getSelectionModel().getSelectedItem().toString());
        
-        Tabela.setItems(daneTabeli); 
-        WyborKonia.setItems(konie);
-        WyborJezdzca.setItems(jezdzcy);
+            Tabela.setItems(daneTabeli); 
+            WyborKonia.setItems(konie);
+            WyborJezdzca.setItems(jezdzcy);
+        }
     }
     
     //Metoda usuwa zaznaczony zespół z tabeli i dodaje wybrane pozycje z Comboboxów
@@ -99,7 +140,7 @@ public class SymulacjaController implements Initializable {
             pokaz.showAlertBox();
             
         }else{
-            
+            zwrocZespoly();
             WykresController.getDane(daneTabeli);  
             pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
         } 
