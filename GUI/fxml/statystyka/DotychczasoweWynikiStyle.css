@@ -1,0 +1,64 @@
+#tlo{
+    -fx-background-color: linear-gradient(to bottom, #000000 -100%, #ffff00 150%);
+}
+
+#kon{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+}
+
+#jezdziec{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+}
+
+
+#gonitwa{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+}
+
+#powrot{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+}
+
+#tytul{
+   -fx-text-alignment: center; 
+   -fx-text-fill: #FFFFE0;
+}
+
+#wynikK{
+    -fx-text-alignment: center; 
+    -fx-text-fill: #FFFFE0;
+}
+
+#wynikJ{
+    -fx-text-alignment: center; 
+    -fx-text-fill: #FFFFE0;
+}
+
+#wynikG{
+   -fx-text-alignment: center; 
+   -fx-text-fill: #FFFFE0;
+}

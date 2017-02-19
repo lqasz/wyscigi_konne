@@ -1,0 +1,8 @@
+#scena{
+    -fx-background-color: radial-gradient(radius 70%, #DCDCDC, derive(#5484A4, -10%));
+}
+
+#info{
+    -fx-text-fill: #FFFFE0;
+}
+

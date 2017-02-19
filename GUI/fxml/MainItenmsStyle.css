@@ -1,0 +1,47 @@
+#tlo{
+
+    -fx-background-color: linear-gradient(to bottom, #000000 -100%, #ffff00 150%);
+}
+
+#symulacja{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+}
+
+#wyniki{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+}
+
+#dodaj{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-background-color: linear-gradient(to bottom, #33ccff -75%, #ff99cc 100%);
+}
+
+#opisS{
+    -fx-text-alignment: center; 
+    -fx-text-fill: #FFFFE0;
+}
+
+#opisW{
+    -fx-text-alignment: center; 
+    -fx-text-fill: #FFFFE0;
+}
+
+#opisD{
+   -fx-text-alignment: center; 
+   -fx-text-fill: #FFFFE0;
+}

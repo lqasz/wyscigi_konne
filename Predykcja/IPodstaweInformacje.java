@@ -5,6 +5,8 @@
  */
 package wyscigi_konne.Predykcja;
 
+import java.sql.SQLException;
+
 import java.util.HashMap;
 
 /**
@@ -13,6 +15,8 @@ import java.util.HashMap;
  */
 public interface IPodstaweInformacje 
 {
-    public String zwrocCzlonkaZespolu(String nazwaCzlonka);
+    public String zwrocIdObiektu(String nazwa, String tabela) throws SQLException;
+    public String[] zwrocCzlonkowZespolu(int idZespolu);
     public HashMap<String, Integer> przeksztalcNaWskazniki(String zapytanie, String pole);
 }
+

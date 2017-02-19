@@ -11,5 +11,5 @@ package wyscigi_konne.Predykcja;
  */
 public interface IPrzetworzenieDanych 
 {
-    
+    public void Standaryzuj();
 }

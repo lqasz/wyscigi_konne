@@ -8,16 +8,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.przewidywanie.SymulacjaController">
+<BorderPane fx:id="tlo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@SymulacjaStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wyscigi_konne.GUI.fxml.przewidywanie.SymulacjaController">
    <top>
       <VBox alignment="CENTER" prefHeight="80.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Wybierz dystans">
+            <Label fx:id="opisWD" text="Wybierz dystans">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <ComboBox fx:id="WyborDystansu" prefWidth="150.0" />
@@ -25,14 +25,14 @@
       </VBox>
    </top>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0" spacing="40.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
+            <Button fx:id="wyniki" mnemonicParsing="false" onAction="#goNewWindow" prefWidth="150.0" text="Pokaż wyniki">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#goMainItems" prefWidth="150.0" text="Powrót">
+            <Button fx:id="powrot" mnemonicParsing="false" onAction="#goMainItems" prefWidth="150.0" text="Powrót">
                <font>
                   <Font size="14.0" />
                </font>
@@ -43,9 +43,9 @@
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Wybierz jeźdźca">
+            <Label fx:id="opisWK" text="Wybierz jeźdźca">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <ComboBox fx:id="WyborJezdzca" prefWidth="150.0">
@@ -53,7 +53,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </ComboBox>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" text="Usuń zespół">
+            <Button fx:id="usun" mnemonicParsing="false" onAction="#usunZespol" prefHeight="30.0" prefWidth="130.0" text="Usuń zespół">
                <font>
                   <Font size="14.0" />
                </font></Button>
@@ -66,9 +66,9 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="150.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Wybierz konia">
+            <Label fx:id="opisWJ" text="Wybierz konia">
                <font>
-                  <Font size="14.0" />
+                  <Font size="16.0" />
                </font>
             </Label>
             <ComboBox fx:id="WyborKonia" prefWidth="150.0">
@@ -76,7 +76,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </ComboBox>
-            <Button mnemonicParsing="false" onAction="#dodajZespol" prefHeight="30.0" prefWidth="130.0" text="Dodaj zespół">
+            <Button fx:id="dodaj" mnemonicParsing="false" onAction="#dodajZespol" prefHeight="30.0" prefWidth="130.0" text="Dodaj zespół">
                <font>
                   <Font size="14.0" />
                </font></Button>
@@ -89,9 +89,15 @@
    <right>
       <TableView fx:id="Tabela" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="KolumnaKoni" minWidth="150.0" prefWidth="150.0" text="Koń" />
-          <TableColumn fx:id="KolumnaJezdzcow" prefWidth="150.0" text="Jeździec" />
+          <TableColumn fx:id="KolumnaKoni" minWidth="119.0" prefWidth="149.0" resizable="false" text="Koń" />
+          <TableColumn fx:id="KolumnaJezdzcow" prefWidth="149.0" resizable="false" text="Jeździec" />
         </columns>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets left="2.0" right="2.0" />
+         </padding>
       </TableView>
    </right>
 </BorderPane>

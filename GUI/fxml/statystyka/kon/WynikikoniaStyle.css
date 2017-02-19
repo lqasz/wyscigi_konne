@@ -1,0 +1,60 @@
+#tlo{
+    -fx-background-color: linear-gradient(to bottom, #000000 -50%, #ffff00 120%);
+}
+
+#opisK{
+
+   -fx-text-fill: #FFFFE0;
+}
+
+#opisS{
+   -fx-text-fill: #FFFFE0;
+}
+
+#wyniki{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+    -fx-text-alignment: center; 
+}
+
+#powrot{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+    -fx-text-alignment: center; 
+}
+
+#WyborKonia{
+    -fx-padding: 5 5 5 5;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-size: 1.1em;
+}
+
+#WyborSezonu{
+    -fx-padding: 5 5 5 5;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-size: 1.1em;
+}

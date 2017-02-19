@@ -60,8 +60,10 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             ResultSet zapytanieNazwaKonia = this.uchwytDoBazy.executeQuery("SELECT `nazwa` FROM `konie` WHERE `id` = '"+ dane[1] +"'");
             zapytanieNazwaKonia.next();
             String nazwaKonia = zapytanieNazwaKonia.getString("nazwa");
+            String[] parametry = new String[]{"miejsce", "stan toru", "styl", "wycofano", "dystans", "rekordy", "jezdziec", "temperatura"};
             
-            ObservableList<HashMap> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia);
+
+            ObservableList<HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia, "2016", parametry);
 
             if(strukturaDanych.get(dane[0]) == null) {
                 daneWskaznikowe = new HashMap<>();
@@ -74,18 +76,43 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
                 daneWskaznikowe = this.przetworzDaneGonitwy(daneWskaznikowe, gonitwa);
             }
             
+
             daneWskaznikowe.putAll(przetworzDaneKonia(daneKonia));
             strukturaDanych.put(dane[0], daneWskaznikowe);
         }
         
+        this.dodajDaneDoBazy(strukturaDanych);
+    }
+    
+    private void dodajDaneDoBazy(HashMap<String, HashMap<String, Integer>> strukturaDanych) throws SQLException
+    {
+        int srednia = 0,
+            iterator = 0;
+        
         this.uchwytDoBazy.executeUpdate("TRUNCATE `wskazniki`");
+        for(String idZespolu: strukturaDanych.keySet()) {
+            String[] czlonkowieZespolu = this.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
+            ZwrocStatystykiDlaZespolu grupowanieZespolow = new ZwrocStatystykiDlaZespolu(czlonkowieZespolu[0], czlonkowieZespolu[1]);
+
+            strukturaDanych.put(idZespolu, grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu)));
+            
+            iterator++;
+            srednia += (grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu))).get("srednia");
+        }
+        
+        srednia /= iterator;
         for(String idZespolu: strukturaDanych.keySet()) {
             String XML = "<zespol>"+ idZespolu.trim();
             HashMap<String, Integer> daneWskaznikowe = strukturaDanych.get(idZespolu);
             XML = daneWskaznikowe.keySet().stream().map((klucz) -> "\n  <"+ klucz +">"+ daneWskaznikowe.get(klucz) +"</"+ klucz +">").reduce(XML, String::concat);
+            XML += "\n  <rozstep>"+ (daneWskaznikowe.get("minimum") - daneWskaznikowe.get("maksimum")) +"</rozstep>";
+            XML += "\n  <roznicaSrednich>"+ Math.abs(daneWskaznikowe.get("srednia") - srednia) +"</roznicaSrednich>";
+            XML += "\n  <minimumNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("minimum")) / Double.valueOf(srednia)) +"</minimumNaSrednia>";
+            XML += "\n  <maksimumNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("maksimum")) / Double.valueOf(srednia)) +"</maksimumNaSrednia>";
+            XML += "\n  <sredniaNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("srednia")) / Double.valueOf(srednia)) +"</sredniaNaSrednia>";
             XML += "\n</zespol>";
             
-            this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML +"')");
+            this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML.trim() +"')");
         }
     }
     
@@ -139,10 +166,10 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
         for(String klucz: daneGonitw.keySet()){
             int wartosc = 1;
             wartoscWskaznika = (daneWskaznikowe.get(klucz) != null) ? daneWskaznikowe.get(klucz) : 0;
-            
+
             switch(klucz) {
                 case "miejsce":
-                    wartosc = (daneGonitw.get(klucz) != null && !"0".equals(daneGonitw.get(klucz))) ? (100 - Integer.valueOf(daneGonitw.get(klucz))) : 0;
+                    wartosc = (!"0".equals(daneGonitw.get(klucz))) ? (100 - Integer.valueOf(daneGonitw.get(klucz))) : 0;
                     break;
                 case "stan toru":
                     wartosc = (stanToru.get(daneGonitw.get(klucz)) != null) ? stanToru.get(daneGonitw.get(klucz)) : 1;
@@ -151,7 +178,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
                     wartosc = (stylZespolu.get(daneGonitw.get(klucz)) != null) ? stylZespolu.get(daneGonitw.get(klucz)) : 1;
                     break;
                 case "wycofano":
-                    wartosc = (wycofanoZespol.get(daneGonitw.get(klucz)) != null) ? wycofanoZespol.get(daneGonitw.get(klucz)) : 0;
+                    wartosc = (wycofanoZespol.get(daneGonitw.get(klucz)) != 0) ? 1 : 0;
                     break;
                 case "dystans":
                     wartosc = Integer.valueOf(daneGonitw.get(klucz));
@@ -175,6 +202,11 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             
             if(!"data gonitwy".equals(klucz) && !"nr startowy".equals(klucz) && !"odleglosci".equals(klucz) && !"czas".equals(klucz)) {
                 wartoscWskaznika += wartosc;
+                
+                if("stan toru".equals(klucz)) {
+                    klucz = "stan_tory";
+                }
+                
                 daneWskaznikowe.put(klucz, wartoscWskaznika);
             }
         }
@@ -216,12 +248,32 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
 
     /**
      *
-     * @param nazwaCzlonka
+     * @param idZespolu
      * @return
      */
     @Override
-    public String zwrocCzlonkaZespolu(String nazwaCzlonka) 
+    public String[] zwrocCzlonkowZespolu(int idZespolu) 
     {
-        return "";
+        try {
+            ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery("SELECT `nazwa`, `jezdziec` "
+                    + "FROM `zespol` INNER JOIN `dzokeje` ON (`dzokeje`.`id` = `id dzokeja`) "
+                    + "INNER JOIN `konie` ON(`konie`.`id` = `id konia`)" 
+                    + "WHERE `zespol`.`id` = '"+ idZespolu +"'");
+            
+            wynikZapytania.next();
+            String kon = wynikZapytania.getString("nazwa");
+            String dzokej = wynikZapytania.getString("jezdziec");
+            
+            return new String[]{kon, dzokej};
+        } catch (SQLException ex) {
+            Logger.getLogger(WyliczWskazniki.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public String zwrocIdObiektu(String nazwa, String tabela) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 }

@@ -6,8 +6,11 @@
 package wyscigi_konne.Predykcja;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -21,6 +24,7 @@ public class WyscigiKonne
     public static void main(String[] args)
     {
         try {
+            String[] dane = new String[]{"jezdziec", "nazwa", "nr gonitwy", "miejsce"};
             WyliczWskazniki Test = new WyliczWskazniki();
             Test.wybierzWskaznikiDlaZespolu();
             
