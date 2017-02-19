@@ -1,0 +1,132 @@
+#tlo{
+    -fx-background-color: linear-gradient(to bottom, #000000 -50%, #ffff00 120%);
+}
+
+#opisWD{
+   -fx-text-fill: #FFFFE0;
+}
+
+#opisWK{
+   -fx-text-fill: #FFFFE0;
+}
+
+#opisWJ{
+   -fx-text-fill: #FFFFE0;
+}
+
+#dodaj{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+    -fx-text-alignment: center; 
+}
+
+#usun{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+    -fx-text-alignment: center; 
+}
+
+#wyniki{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+    -fx-text-alignment: center; 
+}
+
+#powrot{
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-opacity: 0.9;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.3em;
+    -fx-text-fill: #FFFFE0;
+    -fx-text-alignment: center; 
+}
+
+#WyborDystansu{
+    -fx-padding: 5 5 5 5;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-size: 1.1em;
+}
+
+#WyborKonia{
+    -fx-padding: 5 5 5 5;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-size: 1.1em;
+}
+
+#WyborJezdzca{
+    -fx-padding: 5 5 5 5;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 100%, #00cc66, #000000);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,4 );
+    -fx-font-weight: bold;
+    -fx-opacity: 0.9;
+    -fx-font-size: 1.1em;
+}
+
+#Tabela{
+    -fx-base: #ffff00;
+    -fx-control-inner-background: #0000000;
+    -fx-background-color: #00cc66;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 20;
+    -fx-border-width: 0 0 0 0;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 10pt;
+    -fx-text-fill: #000000;
+    -fx-alignment: center;
+    -fx-opacity: 1;
+}
+

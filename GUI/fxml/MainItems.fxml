@@ -63,7 +63,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="opisD" text="Dodaj zawody">
+            <Label fx:id="opisD" text="Modyfikuj dane">
                <font>
                   <Font size="18.0" />
                </font>

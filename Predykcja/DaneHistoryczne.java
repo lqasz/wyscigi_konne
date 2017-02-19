@@ -20,12 +20,13 @@ public class DaneHistoryczne extends PolaczZBaza
     /**
      *
      * @param dataGonitwy
+     * @param numerGonitwy
+     * @param parametry
      * @return
      * @throws SQLException
      */
     public ObservableList<HashMap<String, String>> zwrocDaneGonitwy(String dataGonitwy, String numerGonitwy, String[] parametry) throws SQLException
     {
-       
         ResultSet wynikZapytania;
         ObservableList<HashMap<String, String>> daneWynikowe = FXCollections.observableArrayList();
         String zapytanie = "SELECT * "
@@ -139,6 +140,8 @@ public class DaneHistoryczne extends PolaczZBaza
      *
      * @param obiekt
      * @param nazwaObiektu
+     * @param sezon
+     * @param parametry
      * @return
      * @throws SQLException
      */
@@ -163,8 +166,7 @@ public class DaneHistoryczne extends PolaczZBaza
                             + "WHERE `"+ nazwaWiersza +"` = '"+ nazwaObiektu +"' "
                                 + "AND YEAR(`data gonitwy`) = '"+ sezon +"' "
                             + "ORDER BY `data gonitwy` ASC";
-        
-        
+
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             HashMap<String, String> dane = new HashMap();
@@ -187,11 +189,12 @@ public class DaneHistoryczne extends PolaczZBaza
      * @return
      * @throws SQLException
      */
-    public ObservableList<String> polaDoComboBox(String tabela, String pole) throws SQLException
-    {   
-        String zapytanie;
+    public ObservableList<Integer> daneDoWykresuDlaObiektu(String obiekt, String nazwaObiektu) throws SQLException
+    {
         ResultSet wynikZapytania;
-        ObservableList<String> daneWynikowe = FXCollections.observableArrayList();
+        String nazwaWiersza;
+        ObservableList<Integer> daneWynikowe = FXCollections.observableArrayList();
+
         
         if(pole.equals("YEAR(`data gonitwy`)")){
             zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
@@ -209,6 +212,39 @@ public class DaneHistoryczne extends PolaczZBaza
         return daneWynikowe;
     }
     
+    /**
+     *
+     * @param tabela
+     * @param pole
+     * @return
+     * @throws SQLException
+     */
+    public ObservableList<String> polaDoComboBox(String tabela, String pole) throws SQLException
+    {
+        String zapytanie;
+        ResultSet wynikZapytania;
+        ObservableList<String> daneWynikowe = FXCollections.observableArrayList();
+
+        if(pole.equals("YEAR(`data gonitwy`)")) {
+            zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
+        } else {
+            zapytanie = "SELECT DISTINCT `"+ pole +"` AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0 ORDER BY `"+ pole +"` ASC";
+        }
+        
+        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        while(wynikZapytania.next()) {
+            daneWynikowe.add(wynikZapytania.getString("pole").trim());
+        }
+        
+        return daneWynikowe;
+    }
+    
+    /**
+     *
+     * @param dataGonitwy
+     * @return
+     * @throws SQLException
+     */
     public ObservableList<Integer> iloscGonitw(String dataGonitwy) throws SQLException
     {
         ResultSet wynikZapytania;
@@ -221,7 +257,7 @@ public class DaneHistoryczne extends PolaczZBaza
             daneWynikowe.add(wynikZapytania.getInt("nr gonitwy"));
         }
         
+        this.uchwytDoBazy.closeOnCompletion();
         return daneWynikowe;
     }
-
 }

@@ -12,19 +12,39 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 import wyscigi_konne.GUI.WyscigiKonne;
 import wyscigi_konne.GUI.fxml.AllertBoxController;
 import wyscigi_konne.Predykcja.DaneHistoryczne;
+import wyscigi_konne.Predykcja.GrupowanieZespolow;
+
 
 public class SymulacjaController implements Initializable {
     
     private WyscigiKonne pokaz;
     
     private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
+
+    
+    @FXML BorderPane tlo;
+    
+    @FXML Label opisWD;
+    @FXML Label opisWK;
+    @FXML Label opisWJ;
+    
+    @FXML Button dodaj;
+    @FXML Button usun;
+    @FXML Button wyniki;
+    @FXML Button powrot;
+
          
     @FXML public ComboBox WyborDystansu; 
     @FXML public ComboBox WyborKonia;
@@ -125,9 +145,17 @@ public class SymulacjaController implements Initializable {
        WyborJezdzca.setItems(jezdzcy);
     }
     
+    private HashMap<String, Double> pobierzWyniki() throws SQLException, ParserConfigurationException, SAXException, IOException{
+        
+        GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(zwrocZespoly());
+        HashMap<String, Double> wskazniki = grupowanieZespolow.zwrocWskaznikiDlaZespolow();
+        System.out.println(wskazniki);
+        return wskazniki;
+    } 
+    
     //Metoda otwiera nowe okno
     @FXML
-    private void goNewWindow(ActionEvent event) throws IOException {
+    private void goNewWindow(ActionEvent event) throws IOException, SQLException, ParserConfigurationException, SAXException {
     
         if(WyborDystansu.getSelectionModel().getSelectedItem() == null){
             
@@ -140,7 +168,8 @@ public class SymulacjaController implements Initializable {
             pokaz.showAlertBox();
             
         }else{
-            zwrocZespoly();
+            WykresController.getMape(pobierzWyniki());
+
             WykresController.getDane(daneTabeli);  
             pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
         } 
@@ -148,8 +177,8 @@ public class SymulacjaController implements Initializable {
 
     //Metoda zmienia widok bieżącego okna
     @FXML
-    private void goMainItems(ActionEvent event) throws IOException {
-        
+    private void goMainItems(ActionEvent event) throws IOException{
+
         pokaz.showView("fxml/MainItems.fxml");
     }
 }

@@ -33,7 +33,6 @@ public class MainItemsController {
     
     @FXML
     public void goDodajZawody() throws IOException{
-        pokaz.showNewView("");
+        pokaz.showNewWindow("fxml/dodaj/Dane.fxml");
     }
-    
 }

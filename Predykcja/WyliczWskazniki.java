@@ -60,9 +60,9 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             ResultSet zapytanieNazwaKonia = this.uchwytDoBazy.executeQuery("SELECT `nazwa` FROM `konie` WHERE `id` = '"+ dane[1] +"'");
             zapytanieNazwaKonia.next();
             String nazwaKonia = zapytanieNazwaKonia.getString("nazwa");
-            
             String[] parametry = new String[]{"miejsce", "stan toru", "styl", "wycofano", "dystans", "rekordy", "jezdziec", "temperatura"};
             
+
             ObservableList<HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia, "2016", parametry);
 
             if(strukturaDanych.get(dane[0]) == null) {
@@ -76,6 +76,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
                 daneWskaznikowe = this.przetworzDaneGonitwy(daneWskaznikowe, gonitwa);
             }
             
+
             daneWskaznikowe.putAll(przetworzDaneKonia(daneKonia));
             strukturaDanych.put(dane[0], daneWskaznikowe);
         }
@@ -91,8 +92,8 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
         this.uchwytDoBazy.executeUpdate("TRUNCATE `wskazniki`");
         for(String idZespolu: strukturaDanych.keySet()) {
             String[] czlonkowieZespolu = this.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
-            
-            GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(czlonkowieZespolu[0], czlonkowieZespolu[1]);
+            ZwrocStatystykiDlaZespolu grupowanieZespolow = new ZwrocStatystykiDlaZespolu(czlonkowieZespolu[0], czlonkowieZespolu[1]);
+
             strukturaDanych.put(idZespolu, grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu)));
             
             iterator++;
@@ -104,7 +105,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             String XML = "<zespol>"+ idZespolu.trim();
             HashMap<String, Integer> daneWskaznikowe = strukturaDanych.get(idZespolu);
             XML = daneWskaznikowe.keySet().stream().map((klucz) -> "\n  <"+ klucz +">"+ daneWskaznikowe.get(klucz) +"</"+ klucz +">").reduce(XML, String::concat);
-            XML += "\n  <rozstep>"+ (daneWskaznikowe.get("maksimum") - daneWskaznikowe.get("minimum")) +"</rozstep>";
+            XML += "\n  <rozstep>"+ (daneWskaznikowe.get("minimum") - daneWskaznikowe.get("maksimum")) +"</rozstep>";
             XML += "\n  <roznicaSrednich>"+ Math.abs(daneWskaznikowe.get("srednia") - srednia) +"</roznicaSrednich>";
             XML += "\n  <minimumNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("minimum")) / Double.valueOf(srednia)) +"</minimumNaSrednia>";
             XML += "\n  <maksimumNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("maksimum")) / Double.valueOf(srednia)) +"</maksimumNaSrednia>";
@@ -165,10 +166,10 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
         for(String klucz: daneGonitw.keySet()){
             int wartosc = 1;
             wartoscWskaznika = (daneWskaznikowe.get(klucz) != null) ? daneWskaznikowe.get(klucz) : 0;
-            
+
             switch(klucz) {
                 case "miejsce":
-                    wartosc = (daneGonitw.get(klucz) != null && !"0".equals(daneGonitw.get(klucz))) ? (100 - Integer.valueOf(daneGonitw.get(klucz))) : 0;
+                    wartosc = (!"0".equals(daneGonitw.get(klucz))) ? (100 - Integer.valueOf(daneGonitw.get(klucz))) : 0;
                     break;
                 case "stan toru":
                     wartosc = (stanToru.get(daneGonitw.get(klucz)) != null) ? stanToru.get(daneGonitw.get(klucz)) : 1;
@@ -177,7 +178,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
                     wartosc = (stylZespolu.get(daneGonitw.get(klucz)) != null) ? stylZespolu.get(daneGonitw.get(klucz)) : 1;
                     break;
                 case "wycofano":
-                    wartosc = (wycofanoZespol.get(daneGonitw.get(klucz)) != null) ? wycofanoZespol.get(daneGonitw.get(klucz)) : 0;
+                    wartosc = (wycofanoZespol.get(daneGonitw.get(klucz)) != 0) ? 1 : 0;
                     break;
                 case "dystans":
                     wartosc = Integer.valueOf(daneGonitw.get(klucz));
@@ -201,6 +202,11 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             
             if(!"data gonitwy".equals(klucz) && !"nr startowy".equals(klucz) && !"odleglosci".equals(klucz) && !"czas".equals(klucz)) {
                 wartoscWskaznika += wartosc;
+                
+                if("stan toru".equals(klucz)) {
+                    klucz = "stan_tory";
+                }
+                
                 daneWskaznikowe.put(klucz, wartoscWskaznika);
             }
         }
@@ -263,5 +269,11 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             Logger.getLogger(WyliczWskazniki.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public String zwrocIdObiektu(String nazwa, String tabela) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 }
