@@ -26,11 +26,13 @@ import wyscigi_konne.GUI.fxml.AllertBoxController;
 import wyscigi_konne.Predykcja.DaneHistoryczne;
 import wyscigi_konne.Predykcja.GrupowanieZespolow;
 
+
 public class SymulacjaController implements Initializable {
     
     private WyscigiKonne pokaz;
     
     private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
+
     
     @FXML BorderPane tlo;
     
@@ -42,6 +44,7 @@ public class SymulacjaController implements Initializable {
     @FXML Button usun;
     @FXML Button wyniki;
     @FXML Button powrot;
+
          
     @FXML public ComboBox WyborDystansu; 
     @FXML public ComboBox WyborKonia;
@@ -166,6 +169,7 @@ public class SymulacjaController implements Initializable {
             
         }else{
             WykresController.getMape(pobierzWyniki());
+
             WykresController.getDane(daneTabeli);  
             pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
         } 

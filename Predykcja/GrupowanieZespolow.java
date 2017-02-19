@@ -5,7 +5,6 @@
  */
 package wyscigi_konne.Predykcja;
 
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.sql.SQLException;
@@ -20,6 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
 
 /**
  *

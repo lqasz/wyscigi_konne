@@ -39,6 +39,8 @@ public class DaneHistoryczne extends PolaczZBaza
                             + "AND `nr gonitwy` = "+ numerGonitwy +" "
                             + "ORDER BY `dystans` ASC";
         
+        System.out.println(zapytanie);
+        
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             HashMap<String, String> dane = new HashMap();
@@ -182,8 +184,8 @@ public class DaneHistoryczne extends PolaczZBaza
     
     /**
      *
-     * @param obiekt
-     * @param nazwaObiektu
+     * @param tabela
+     * @param pole
      * @return
      * @throws SQLException
      */
@@ -192,21 +194,19 @@ public class DaneHistoryczne extends PolaczZBaza
         ResultSet wynikZapytania;
         String nazwaWiersza;
         ObservableList<Integer> daneWynikowe = FXCollections.observableArrayList();
+
         
-        if("dzokej".equals(obiekt)) {
-            nazwaWiersza = "jezdziec";
-        } else {
-            nazwaWiersza = "nazwa";
+        if(pole.equals("YEAR(`data gonitwy`)")){
+            zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
+        }else{
+            zapytanie = "SELECT DISTINCT `"+ pole +"` AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
         }
         
-        String zapytanie = "SELECT `miejsce` FROM `gonitwa` "
-                + "INNER JOIN `konie` ON(`konie`.`id` = `id konia`) "
-                + "INNER JOIN `dzokeje` ON(`dzokeje`.`id` = `id dzokeja`) "
-                + "WHERE `"+ nazwaWiersza +"` = '"+ nazwaObiektu +"' AND `gonitwa`.`usunieto` = 0";
-        
+        System.out.println(zapytanie);
         wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        
         while(wynikZapytania.next()) {
-            daneWynikowe.add(wynikZapytania.getInt("miejsce"));
+            daneWynikowe.add(wynikZapytania.getString("pole").trim());
         }
         
         return daneWynikowe;

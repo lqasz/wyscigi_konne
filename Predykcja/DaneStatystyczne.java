@@ -46,5 +46,6 @@ public class DaneStatystyczne extends PolaczZBaza
         wynikZapytania.next();
         
         return new String[] {wynikZapytania.getString("pocz"), wynikZapytania.getString("kon")};
+
     }
 }

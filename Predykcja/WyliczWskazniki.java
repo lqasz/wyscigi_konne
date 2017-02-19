@@ -62,6 +62,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             String nazwaKonia = zapytanieNazwaKonia.getString("nazwa");
             String[] parametry = new String[]{"miejsce", "stan toru", "styl", "wycofano", "dystans", "rekordy", "jezdziec", "temperatura"};
             
+
             ObservableList<HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia, "2016", parametry);
 
             if(strukturaDanych.get(dane[0]) == null) {
@@ -75,6 +76,7 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
                 daneWskaznikowe = this.przetworzDaneGonitwy(daneWskaznikowe, gonitwa);
             }
             
+
             daneWskaznikowe.putAll(przetworzDaneKonia(daneKonia));
             strukturaDanych.put(dane[0], daneWskaznikowe);
         }
@@ -90,8 +92,8 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
         this.uchwytDoBazy.executeUpdate("TRUNCATE `wskazniki`");
         for(String idZespolu: strukturaDanych.keySet()) {
             String[] czlonkowieZespolu = this.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
-            
             ZwrocStatystykiDlaZespolu grupowanieZespolow = new ZwrocStatystykiDlaZespolu(czlonkowieZespolu[0], czlonkowieZespolu[1]);
+
             strukturaDanych.put(idZespolu, grupowanieZespolow.zwrocRozszerzoneDane(strukturaDanych.get(idZespolu)));
             
             iterator++;
@@ -272,5 +274,6 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
     @Override
     public String zwrocIdObiektu(String nazwa, String tabela) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 }

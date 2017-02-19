@@ -1,5 +1,6 @@
 #tlo{
     -fx-background-color: linear-gradient(to bottom, #000000 -50%, #ffff00 120%);
+
 }
 
 #opisD{
@@ -58,6 +59,3 @@
     -fx-opacity: 0.9;
     -fx-font-size: 1.1em;
 }
-
-
-
