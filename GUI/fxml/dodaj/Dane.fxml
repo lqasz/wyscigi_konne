@@ -48,27 +48,27 @@
             <Label text="Czas" GridPane.rowIndex="5" />
             <Label text="Temperatura" GridPane.rowIndex="6" />
             <Label text="Styl" GridPane.rowIndex="7" />
-            <Label text="Odległość" GridPane.rowIndex="8" />
+            <Label text="Odległości" GridPane.rowIndex="8" />
             <Label text="Stan toru" GridPane.rowIndex="9" />
             <Label text="Rekordy" GridPane.rowIndex="10" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="Data" GridPane.columnIndex="1" />
+            <TextField fx:id="Dystans" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="Wiek" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="Grupa" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="NrGonitwy" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="Czas" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="Temperatura" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="Styl" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="Odleglosci" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="StanToru" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="Rekordy" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
       </GridPane>
    </right>
    <bottom>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="Zapisz gonitwę" />
+            <Button mnemonicParsing="false" onAction="#handleButtonAction_Zapisz" text="Zapisz gonitwę" />
          </children>
       </HBox>
    </bottom>
@@ -118,352 +118,352 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.rowIndex="1">
+            <TextField fx:id="Kolejnosc1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="NazwaKonia1" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="2">
+            <TextField fx:id="Kolejnosc2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="NazwaKonia2" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <TextField fx:id="Jezdziec2" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TextField fx:id="Jezdziec1" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <TextField fx:id="Waga1" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <TextField fx:id="Waga2" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <TextField fx:id="NrStart1" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <TextField fx:id="NrStart2" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="3">
+            <TextField fx:id="Kolejnosc3" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="NazwaKonia3" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <TextField fx:id="Jezdziec3" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <TextField fx:id="Waga3" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="3">
+            <TextField fx:id="NrStart3" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="4">
+            <TextField fx:id="Kolejnosc4" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="NazwaKonia4" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <TextField fx:id="Jezdziec4" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <TextField fx:id="Waga4" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="4">
+            <TextField fx:id="NrStart4" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="5">
+            <TextField fx:id="Kolejnosc5" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="NazwaKonia5" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <TextField fx:id="Jezdziec5" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="5">
+            <TextField fx:id="Waga5" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="5">
+            <TextField fx:id="NrStart5" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="6">
+            <TextField fx:id="Kolejnosc6" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="NazwaKonia6" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <TextField fx:id="Jezdziec6" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="6">
+            <TextField fx:id="Waga6" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="6">
+            <TextField fx:id="NrStart6" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="7">
+            <TextField fx:id="Kolejnosc7" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <TextField fx:id="NazwaKonia7" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <TextField fx:id="Jezdziec7" GridPane.columnIndex="2" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="7">
+            <TextField fx:id="Waga7" GridPane.columnIndex="3" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="7">
+            <TextField fx:id="NrStart7" GridPane.columnIndex="4" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="8">
+            <TextField fx:id="Kolejnosc8" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <TextField fx:id="NazwaKonia8" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="8">
+            <TextField fx:id="Jezdziec8" GridPane.columnIndex="2" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="8">
+            <TextField fx:id="Waga8" GridPane.columnIndex="3" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="8">
+            <TextField fx:id="NrStart8" GridPane.columnIndex="4" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="9">
+            <TextField fx:id="Kolejnosc9" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <TextField fx:id="NazwaKonia9" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="9">
+            <TextField fx:id="Jezdziec9" GridPane.columnIndex="2" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="9">
+            <TextField fx:id="Waga9" GridPane.columnIndex="3" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="9">
+            <TextField fx:id="NrStart9" GridPane.columnIndex="4" GridPane.rowIndex="9">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="10">
+            <TextField fx:id="Kolejnosc10" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <TextField fx:id="NazwaKonia10" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="10">
+            <TextField fx:id="Jezdziec10" GridPane.columnIndex="2" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="10">
+            <TextField fx:id="Waga10" GridPane.columnIndex="3" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="10">
+            <TextField fx:id="NrStart10" GridPane.columnIndex="4" GridPane.rowIndex="10">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="12">
+            <TextField fx:id="Kolejnosc12" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="13">
+            <TextField fx:id="Kolejnosc13" GridPane.rowIndex="13">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="14">
+            <TextField fx:id="Kolejnosc14" GridPane.rowIndex="14">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="12">
+            <TextField fx:id="NazwaKonia12" GridPane.columnIndex="1" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="13">
+            <TextField fx:id="NazwaKonia13" GridPane.columnIndex="1" GridPane.rowIndex="13">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="14">
+            <TextField fx:id="NazwaKonia14" GridPane.columnIndex="1" GridPane.rowIndex="14">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="11">
+            <TextField fx:id="Jezdziec11" GridPane.columnIndex="2" GridPane.rowIndex="11">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.rowIndex="11">
+            <TextField fx:id="Kolejnosc11" GridPane.rowIndex="11">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="11">
+            <TextField fx:id="NazwaKonia11" GridPane.columnIndex="1" GridPane.rowIndex="11">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="12">
+            <TextField fx:id="Jezdziec12" GridPane.columnIndex="2" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="13">
+            <TextField fx:id="Jezdziec13" GridPane.columnIndex="2" GridPane.rowIndex="13">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="14">
+            <TextField fx:id="Jezdziec14" GridPane.columnIndex="2" GridPane.rowIndex="14">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="11">
+            <TextField fx:id="Waga11" GridPane.columnIndex="3" GridPane.rowIndex="11">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="12">
+            <TextField fx:id="Waga12" GridPane.columnIndex="3" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="13">
+            <TextField fx:id="Waga13" GridPane.columnIndex="3" GridPane.rowIndex="13">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="14">
+            <TextField fx:id="Waga14" GridPane.columnIndex="3" GridPane.rowIndex="14">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="11">
+            <TextField fx:id="NrStart11" GridPane.columnIndex="4" GridPane.rowIndex="11">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="12">
+            <TextField fx:id="NrStart12" GridPane.columnIndex="4" GridPane.rowIndex="12">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="13">
+            <TextField fx:id="NrStart13" GridPane.columnIndex="4" GridPane.rowIndex="13">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="14">
+            <TextField fx:id="NrStart14" GridPane.columnIndex="4" GridPane.rowIndex="14">
                <GridPane.margin>
                   <Insets left="5.0" right="5.0" />
                </GridPane.margin>

@@ -53,7 +53,6 @@ public class TabelaGonitwController implements Initializable {
         String jezdziec = "";
         int nrStartowy = 0;
         
-        System.out.println(Wynik);
         for(HashMap<String, String> map: Wynik){
             for(String klucz: map.keySet()) {
                 switch(klucz) {

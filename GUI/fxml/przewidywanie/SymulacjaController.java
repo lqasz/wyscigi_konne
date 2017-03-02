@@ -26,13 +26,11 @@ import wyscigi_konne.GUI.fxml.AllertBoxController;
 import wyscigi_konne.Predykcja.DaneHistoryczne;
 import wyscigi_konne.Predykcja.GrupowanieZespolow;
 
-
 public class SymulacjaController implements Initializable {
     
     private WyscigiKonne pokaz;
     
     private DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
-
     
     @FXML BorderPane tlo;
     
@@ -44,7 +42,6 @@ public class SymulacjaController implements Initializable {
     @FXML Button usun;
     @FXML Button wyniki;
     @FXML Button powrot;
-
          
     @FXML public ComboBox WyborDystansu; 
     @FXML public ComboBox WyborKonia;
@@ -101,7 +98,6 @@ public class SymulacjaController implements Initializable {
                 zespoly.put(new String[]{daneTabeli.get(i).getKon().toString(), daneTabeli.get(i).getJezdziec().toString()},dystans);   
             }
             
-            System.out.println(zespoly);
             
         return zespoly;
     }
@@ -145,15 +141,17 @@ public class SymulacjaController implements Initializable {
        WyborJezdzca.setItems(jezdzcy);
     }
     
+    //Metoda pobiera hash mape ze zwruconymi wspóczynnikami dla zespołu kluczem w hash mapie jest nazwa konia
     private HashMap<String, Double> pobierzWyniki() throws SQLException, ParserConfigurationException, SAXException, IOException{
         
         GrupowanieZespolow grupowanieZespolow = new GrupowanieZespolow(zwrocZespoly());
         HashMap<String, Double> wskazniki = grupowanieZespolow.zwrocWskaznikiDlaZespolow();
-        System.out.println(wskazniki);
         return wskazniki;
     } 
     
-    //Metoda otwiera nowe okno
+    //Metoda wysyla dane do klasy obsługującej wykres
+    //następnie otwiera nowe okno z wykresem 
+    //w przypadku gdy uzytkownik
     @FXML
     private void goNewWindow(ActionEvent event) throws IOException, SQLException, ParserConfigurationException, SAXException {
     
@@ -169,7 +167,6 @@ public class SymulacjaController implements Initializable {
             
         }else{
             WykresController.getMape(pobierzWyniki());
-
             WykresController.getDane(daneTabeli);  
             pokaz.showNewWindow("fxml/przewidywanie/Wykres.fxml");
         } 

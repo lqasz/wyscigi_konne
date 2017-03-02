@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import wyscigi_konne.Predykcja.WyliczWskazniki;
 
 
 public class WyscigiKonne extends Application{
@@ -20,6 +21,8 @@ public class WyscigiKonne extends Application{
         this.primaryStage = primaryStage;   
         this.primaryStage.setTitle("Wyścigi Konne");
         
+        WyliczWskazniki wyliczWskazniki = new WyliczWskazniki();
+        wyliczWskazniki.wybierzWskaznikiDlaZespolu();
         showMainView("fxml/MainView.fxml");
         showView("fxml/MainItems.fxml");
     }

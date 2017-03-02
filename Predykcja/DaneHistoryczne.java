@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
  *
  * @author Admin
  */
-public class DaneHistoryczne extends PolaczZBaza 
+public class DaneHistoryczne
 {
     /**
      *
@@ -28,6 +28,7 @@ public class DaneHistoryczne extends PolaczZBaza
     public ObservableList<HashMap<String, String>> zwrocDaneGonitwy(String dataGonitwy, String numerGonitwy, String[] parametry) throws SQLException
     {
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         ObservableList<HashMap<String, String>> daneWynikowe = FXCollections.observableArrayList();
         String zapytanie = "SELECT * "
                             + "FROM `informacje` "
@@ -39,9 +40,7 @@ public class DaneHistoryczne extends PolaczZBaza
                             + "AND `nr gonitwy` = "+ numerGonitwy +" "
                             + "ORDER BY `dystans` ASC";
         
-        System.out.println(zapytanie);
-        
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             HashMap<String, String> dane = new HashMap();
             for(String parametr: parametry) {
@@ -51,6 +50,9 @@ public class DaneHistoryczne extends PolaczZBaza
             
             daneWynikowe.add(dane);
         }
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return daneWynikowe;
     }
@@ -64,15 +66,19 @@ public class DaneHistoryczne extends PolaczZBaza
     public String[] zwrocDaneKonia(String nazwaKonia) throws SQLException
     {
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         String zapytanie = "SELECT `wiek`, `rasa`, `grupa` "
                             + "FROM `konie` "
                             + "WHERE `nazwa` = '"+ nazwaKonia +"' ";
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         wynikZapytania.next();
         String wiek = wynikZapytania.getString("wiek");
         String rasa = wynikZapytania.getString("rasa");
         String grupa = wynikZapytania.getString("grupa");
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return new String[]{wiek, rasa, grupa};
     }
@@ -86,15 +92,19 @@ public class DaneHistoryczne extends PolaczZBaza
     public int zwrocDaneDzokeja(String dzokej) throws SQLException
     {
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         String zapytanie = "SELECT `waga` "
                             + "FROM `dzokeje` "
                             + "WHERE `jezdziec` = '"+ dzokej +"' ";
         
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         wynikZapytania.next();
         int waga = wynikZapytania.getInt("waga");
-
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
+        
         return waga;
     }
     
@@ -102,6 +112,7 @@ public class DaneHistoryczne extends PolaczZBaza
     {
         ResultSet wynikZapytania;
         String nazwaWiersza1, nazwaWiersza2;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         ObservableList<HashMap> daneWynikowe = FXCollections.observableArrayList();
         
         if("dzokej".equals(obiekt)) {
@@ -119,7 +130,7 @@ public class DaneHistoryczne extends PolaczZBaza
                             + "WHERE `"+ nazwaWiersza2 +"` = '"+ nazwaObiektu +"' ";
         
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             String nazwa = wynikZapytania.getString(nazwaWiersza1);
             String rekord = wynikZapytania.getString("rekord");
@@ -132,6 +143,9 @@ public class DaneHistoryczne extends PolaczZBaza
             
             daneWynikowe.add(dane);
         }
+
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return daneWynikowe;
     }
@@ -149,6 +163,7 @@ public class DaneHistoryczne extends PolaczZBaza
     {
         ResultSet wynikZapytania;
         String nazwaWiersza;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         ObservableList<HashMap<String, String>> daneWynikowe = FXCollections.observableArrayList();
         
         if("dzokej".equals(obiekt)) {
@@ -167,7 +182,7 @@ public class DaneHistoryczne extends PolaczZBaza
                                 + "AND YEAR(`data gonitwy`) = '"+ sezon +"' "
                             + "ORDER BY `data gonitwy` ASC";
 
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             HashMap<String, String> dane = new HashMap();
             
@@ -179,35 +194,8 @@ public class DaneHistoryczne extends PolaczZBaza
             daneWynikowe.add(dane);
         }
         
-        return daneWynikowe;
-    }
-    
-    /**
-     *
-     * @param tabela
-     * @param pole
-     * @return
-     * @throws SQLException
-     */
-    public ObservableList<Integer> daneDoWykresuDlaObiektu(String obiekt, String nazwaObiektu) throws SQLException
-    {
-        ResultSet wynikZapytania;
-        String nazwaWiersza;
-        ObservableList<Integer> daneWynikowe = FXCollections.observableArrayList();
-
-        
-        if(pole.equals("YEAR(`data gonitwy`)")){
-            zapytanie = "SELECT DISTINCT "+ pole +" AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
-        }else{
-            zapytanie = "SELECT DISTINCT `"+ pole +"` AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0";
-        }
-        
-        System.out.println(zapytanie);
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
-        
-        while(wynikZapytania.next()) {
-            daneWynikowe.add(wynikZapytania.getString("pole").trim());
-        }
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return daneWynikowe;
     }
@@ -223,6 +211,7 @@ public class DaneHistoryczne extends PolaczZBaza
     {
         String zapytanie;
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         ObservableList<String> daneWynikowe = FXCollections.observableArrayList();
 
         if(pole.equals("YEAR(`data gonitwy`)")) {
@@ -231,10 +220,13 @@ public class DaneHistoryczne extends PolaczZBaza
             zapytanie = "SELECT DISTINCT `"+ pole +"` AS `pole` FROM `"+ tabela +"` WHERE `usunieto` = 0 ORDER BY `"+ pole +"` ASC";
         }
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             daneWynikowe.add(wynikZapytania.getString("pole").trim());
         }
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return daneWynikowe;
     }
@@ -248,16 +240,19 @@ public class DaneHistoryczne extends PolaczZBaza
     public ObservableList<Integer> iloscGonitw(String dataGonitwy) throws SQLException
     {
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         ObservableList<Integer> daneWynikowe = FXCollections.observableArrayList();
         
         String zapytanie = "SELECT DISTINCT `nr gonitwy` FROM `gonitwa` WHERE `usunieto` = 0 AND `data gonitwy` = '"+ dataGonitwy +"'";
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         
         while(wynikZapytania.next()) {
             daneWynikowe.add(wynikZapytania.getInt("nr gonitwy"));
         }
         
-        this.uchwytDoBazy.closeOnCompletion();
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
+        
         return daneWynikowe;
     }
 }

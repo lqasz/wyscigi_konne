@@ -101,7 +101,6 @@
 
 #Tabela{
     -fx-base: #ffff00;
-    -fx-control-inner-background: #0000000;
     -fx-background-color: #00cc66;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;

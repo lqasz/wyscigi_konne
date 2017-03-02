@@ -23,23 +23,24 @@ public class WykresController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb){ 
-        System.out.println(mapa);
-
-        int i, suma = 0;
+ 
+        int i, suma;
+        suma=0;
         for(i=0;i<daneDoWykresu.size();i++){
             suma += mapa.get(daneDoWykresu.get(i).getKon());
         }
         
         for(i=0;i<daneDoWykresu.size();i++){
+            
             dane.add(new PieChart.Data("Zespół: " + daneDoWykresu.get(i).getJezdziec() 
-                                          + ", " + daneDoWykresu.get(i).getKon() +" "+ (int)((mapa.get(daneDoWykresu.get(i).getKon()) / suma)*100) +"%",
-                                                mapa.get(daneDoWykresu.get(i).getKon())));
+                                           + ", " + daneDoWykresu.get(i).getKon() +" "+ (int)((mapa.get(daneDoWykresu.get(i).getKon()) / suma)*100) +"%",
+                                                    mapa.get(daneDoWykresu.get(i).getKon())));
         }
  
-        wykres.setLegendSide(Side.RIGHT);
+        wykres.setLegendSide(Side.LEFT);
         wykres.setData(dane);
-    }  
-
+    }
+    
     public static void getDane(ObservableList<ElementyTabeli> daneTabeli) {
         daneDoWykresu = daneTabeli;
     }

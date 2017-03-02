@@ -138,7 +138,6 @@ public class GrupowanieZespolow
                                     break;
                                 case "grupa":
                                 case "rekordy":
-                                    System.out.println(daneZespolu1.get(tag));
                                     wartosc = Integer.valueOf(daneZespolu1.get(tag));
                                     break;
                                 case "rozstep":
@@ -183,7 +182,6 @@ public class GrupowanieZespolow
             wskaznikowDlaZespolow.put(zespol[0].trim(), wskaznikZespolu.get(idZespolu));
         });
         
-        System.out.println(wskaznikowDlaZespolow);
         return wskaznikowDlaZespolow;
     }
 }

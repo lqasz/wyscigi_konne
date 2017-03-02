@@ -59,7 +59,6 @@ public class TabelaKoniController implements Initializable {
         int nrStartowy = 0;
         int kolejnosc = 0;
         
-        System.out.println(Wynik);
         for(HashMap<String, String> map: Wynik){
             for(String klucz: map.keySet()) {
                 switch(klucz) {

@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
  *
  * @author Admin
  */
-public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
+public class WyliczWskazniki implements IPodstaweInformacje
 {
     private final HashMap<String, Integer> rasaKonia;
     private final HashMap<String, Integer> jezdziec;
@@ -40,10 +40,11 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
      */
     public void wybierzWskaznikiDlaZespolu() throws SQLException
     {
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         ArrayList<String[]> daneZespolu = new ArrayList<>();
         DaneHistoryczne daneHistoryczne = new DaneHistoryczne();
         HashMap<String, HashMap<String, Integer>> strukturaDanych = new HashMap<>();
-        ResultSet zapytanieZespol = this.uchwytDoBazy.executeQuery("SELECT `id`, `id konia`, `id dzokeja` FROM `zespol`");
+        ResultSet zapytanieZespol = polaczZBaza.zwrocUchwyt().executeQuery("SELECT `id`, `id konia`, `id dzokeja` FROM `zespol`");
         
         while(zapytanieZespol.next()) {
             String idZespolu = zapytanieZespol.getString("id");
@@ -57,11 +58,10 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             String[] daneKonia = null;
             HashMap<String, Integer> daneWskaznikowe;
             
-            ResultSet zapytanieNazwaKonia = this.uchwytDoBazy.executeQuery("SELECT `nazwa` FROM `konie` WHERE `id` = '"+ dane[1] +"'");
+            ResultSet zapytanieNazwaKonia = polaczZBaza.zwrocUchwyt().executeQuery("SELECT `nazwa` FROM `konie` WHERE `id` = '"+ dane[1] +"'");
             zapytanieNazwaKonia.next();
             String nazwaKonia = zapytanieNazwaKonia.getString("nazwa");
             String[] parametry = new String[]{"miejsce", "stan toru", "styl", "wycofano", "dystans", "rekordy", "jezdziec", "temperatura"};
-            
 
             ObservableList<HashMap<String, String>> daneGonitwKonia = daneHistoryczne.zwrocDaneGonitwDlaObiektu("koń", nazwaKonia, "2016", parametry);
 
@@ -81,6 +81,9 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             strukturaDanych.put(dane[0], daneWskaznikowe);
         }
         
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
+        
         this.dodajDaneDoBazy(strukturaDanych);
     }
     
@@ -88,8 +91,9 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
     {
         int srednia = 0,
             iterator = 0;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         
-        this.uchwytDoBazy.executeUpdate("TRUNCATE `wskazniki`");
+        polaczZBaza.zwrocUchwyt().executeUpdate("TRUNCATE `wskazniki`");
         for(String idZespolu: strukturaDanych.keySet()) {
             String[] czlonkowieZespolu = this.zwrocCzlonkowZespolu(Integer.valueOf(idZespolu));
             ZwrocStatystykiDlaZespolu grupowanieZespolow = new ZwrocStatystykiDlaZespolu(czlonkowieZespolu[0], czlonkowieZespolu[1]);
@@ -112,8 +116,11 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             XML += "\n  <sredniaNaSrednia>"+ (Double.valueOf(daneWskaznikowe.get("srednia")) / Double.valueOf(srednia)) +"</sredniaNaSrednia>";
             XML += "\n</zespol>";
             
-            this.uchwytDoBazy.executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML.trim() +"')");
+            polaczZBaza.zwrocUchwyt().executeUpdate("INSERT INTO `wskazniki`(`id zespolu`, `metadane`) VALUES('"+ idZespolu +"', '"+ XML.trim() +"')");
         }
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
     }
     
     /**
@@ -224,8 +231,9 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
     public final HashMap<String, Integer> przeksztalcNaWskazniki(String zapytanie, String pole)
     {
         try {
+            PolaczZBaza polaczZBaza = new PolaczZBaza();
             HashMap<String, Integer> dane = new HashMap<>();
-            ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+            ResultSet wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
             
             while(wynikZapytania.next()) {
                 int wartosc = 0;
@@ -239,10 +247,14 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
                 dane.put(klucz, wartosc);
             }
             
+            polaczZBaza.zwrocUchwyt().close();
+            polaczZBaza.zwrocPolaczenie().close();
+            
             return dane;
         } catch (SQLException ex) {
             Logger.getLogger(WyliczWskazniki.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return null;
     }
 
@@ -255,7 +267,8 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
     public String[] zwrocCzlonkowZespolu(int idZespolu) 
     {
         try {
-            ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery("SELECT `nazwa`, `jezdziec` "
+            PolaczZBaza polaczZBaza = new PolaczZBaza();
+            ResultSet wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery("SELECT `nazwa`, `jezdziec` "
                     + "FROM `zespol` INNER JOIN `dzokeje` ON (`dzokeje`.`id` = `id dzokeja`) "
                     + "INNER JOIN `konie` ON(`konie`.`id` = `id konia`)" 
                     + "WHERE `zespol`.`id` = '"+ idZespolu +"'");
@@ -263,6 +276,9 @@ public class WyliczWskazniki extends PolaczZBaza implements IPodstaweInformacje
             wynikZapytania.next();
             String kon = wynikZapytania.getString("nazwa");
             String dzokej = wynikZapytania.getString("jezdziec");
+            
+            polaczZBaza.zwrocUchwyt().close();
+            polaczZBaza.zwrocPolaczenie().close();
             
             return new String[]{kon, dzokej};
         } catch (SQLException ex) {

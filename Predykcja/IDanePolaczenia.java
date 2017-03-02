@@ -15,5 +15,5 @@ public interface IDanePolaczenia
     public final String PORT_BAZY_DANYCH = "3306";
     public final String NAZWA_BAZY_DANYCH = "test";
     public final String UZYTKOWNIK = "root";
-    public final String HASLO = "";
+    public final String HASLO = "root";
 }

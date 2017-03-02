@@ -14,7 +14,6 @@
           <TableColumn fx:id="NazwaKonia" prefWidth="125.0" text="Nazwa Konia" />
             <TableColumn fx:id="Jezdziec" prefWidth="125.0" text="Jeżdziec" />
             <TableColumn fx:id="NrStartowy" prefWidth="124.0" text="Numer startowy" />
-
         </columns>
       </TableView>
    </center>

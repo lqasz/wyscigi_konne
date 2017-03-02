@@ -45,9 +45,7 @@ public class TabelaJezdzcowController implements Initializable {
         Kolejnosc.setCellValueFactory(new PropertyValueFactory<DaneTabeliJezdzcow, Integer>("Kolejnosc"));
         
         XYChart.Series<String, Number> DaneDoWykresu = new XYChart.Series<>();
-        XYChart.Series<String, Number> Srednia = new XYChart.Series<>();
         DaneDoWykresu.setName(jezdziec);
-        Srednia.setName("średnia");
         
         try {
             Wynik = daneHistoryczne.zwrocDaneGonitwDlaObiektu("dzokej", jezdziec, start, parametry);
@@ -60,7 +58,6 @@ public class TabelaJezdzcowController implements Initializable {
         int nrStartowy = 0;
         int kolejnosc = 0;
         
-        System.out.println(Wynik);
         for(HashMap<String, String> map: Wynik){
             for(String klucz: map.keySet()) {
                 switch(klucz) {

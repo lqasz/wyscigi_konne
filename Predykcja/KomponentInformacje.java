@@ -31,14 +31,18 @@ public class KomponentInformacje extends PolaczZBaza implements IPodstaweInforma
     {
         String id = "";
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         String pole = ("konie".equals(tabela)) ? "nazwa" : "jezdziec";
         
         String zapytanie = "SELECT `id` FROM `"+ tabela +"` WHERE `"+ pole +"` LIKE '%"+ nazwa +"%'";
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         while(wynikZapytania.next()) {
             id = wynikZapytania.getString("id").trim();
         }
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return id;
     }
@@ -47,13 +51,17 @@ public class KomponentInformacje extends PolaczZBaza implements IPodstaweInforma
     {
         boolean wynik = false;
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         String zapytanie = "SELECT `id` FROM `zespol` WHERE `id konia` = '"+ idKonia +"' AND `id dzokeja` = '"+ idDzokeja +"'";
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         if(wynikZapytania.next()) {
             idZespolu = wynikZapytania.getString("id").trim();
             wynik = true;
         }
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return wynik;
     }
@@ -62,11 +70,15 @@ public class KomponentInformacje extends PolaczZBaza implements IPodstaweInforma
     {
         String id;
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         String zapytanie = "SELECT `id` FROM `zespol` WHERE `id konia` = '"+ idKonia +"' AND usunieto = 0 GROUP BY `id konia`";
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         wynikZapytania.next();
         id = wynikZapytania.getString("id").trim();
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return id;
     }
@@ -75,11 +87,15 @@ public class KomponentInformacje extends PolaczZBaza implements IPodstaweInforma
     {
         String metadane;
         ResultSet wynikZapytania;
+        PolaczZBaza polaczZBaza = new PolaczZBaza();
         String zapytanie = "SELECT `metadane` FROM `wskazniki` WHERE `id zespolu` = '"+ idZespolu +"'";
         
-        wynikZapytania = this.uchwytDoBazy.executeQuery(zapytanie);
+        wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery(zapytanie);
         wynikZapytania.next();
         metadane = wynikZapytania.getString("metadane").trim();
+        
+        polaczZBaza.zwrocUchwyt().close();
+        polaczZBaza.zwrocPolaczenie().close();
         
         return metadane;
     }
@@ -92,7 +108,8 @@ public class KomponentInformacje extends PolaczZBaza implements IPodstaweInforma
     @Override
     public String[] zwrocCzlonkowZespolu(int idZespolu) {
         try {
-            ResultSet wynikZapytania = this.uchwytDoBazy.executeQuery("SELECT `nazwa`, `jezdziec` "
+            PolaczZBaza polaczZBaza = new PolaczZBaza();
+            ResultSet wynikZapytania = polaczZBaza.zwrocUchwyt().executeQuery("SELECT `nazwa`, `jezdziec` "
                     + "FROM `zespol` INNER JOIN `dzokeje` ON (`dzokeje`.`id` = `id dzokeja`) "
                     + "INNER JOIN `konie` ON(`konie`.`id` = `id konia`)" 
                     + "WHERE `zespol`.`id` = '"+ idZespolu +"'");
@@ -100,6 +117,9 @@ public class KomponentInformacje extends PolaczZBaza implements IPodstaweInforma
             wynikZapytania.next();
             String kon = wynikZapytania.getString("nazwa");
             String dzokej = wynikZapytania.getString("jezdziec");
+            
+            polaczZBaza.zwrocUchwyt().close();
+            polaczZBaza.zwrocPolaczenie().close();
             
             return new String[]{kon, dzokej};
         } catch (SQLException ex) {
